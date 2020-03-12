@@ -21,9 +21,9 @@ These are the goals of this fork:
 Notes:
 
 * Main goal is to keep Rumba's core functionality in line with the original project 
-* The test cases are still part of the project.
-* The help is available as a separate project: <https://github.com/aplteam/RumbaLeanHelp>
-* In order to build a new version execute the `Make.bat` file in the `Make` folder.
+* The test cases are still part of the project
+* The help is available in a sub folder - execute `RumbaHelp/ViewHelp.exe`
+* In order to build a new version execute the `Make.bat` file in the `Make` folder
 * RumbaLean has its own version number
 
 ## Syntactical differences
@@ -44,4 +44,4 @@ If that is not the case for you then you must call `InitConga` yourself once wit
 
 Most of the changes are actually performed by the "Make" workspace; only the changes required for finding the Conga DLLs are actually part of the fork. The reason for this is that this makes a comparison between the original Rumba project and RumbaLean much easier.
 
-The drawback of this approach is that the resulting "RumbaLean" workspace looks very different from the project as such.
+The drawback of this approach is that the resulting "RumbaLean" workspace looks very different from the resulting project workspace.
