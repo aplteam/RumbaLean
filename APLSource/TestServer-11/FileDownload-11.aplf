@@ -1,0 +1,9 @@
+ FileDownload←{
+     path←##.AcreConfig.ProjectFolder
+     path,←'Assets/Development/samplefile.txt'
+     r←##.Core.NewResponse ⍺
+     r.IsFile←1
+     r.FilePath←path
+     r.ContentType←'text/plain'
+     r
+ }

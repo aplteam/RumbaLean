@@ -1,0 +1,23 @@
+Starting script: 20180601100444
+Starting wizard
+Starting script: 20180601100633
+Starting wizard
+Getting current file RecordSet.
+Starting script: 20180601100640
+Starting wizard
+Getting current file RecordSet.
+
+Starting script: 20180601100714
+Starting wizard
+Getting current file RecordSet.
+
+Starting script: 20180601100809
+Starting Wizard
+Getting current file RecordSet.
+
+Starting script: 20180601101152
+Starting Wizard
+Getting current file RecordSet.
+Starting script: 20180601101254
+Starting Wizard
+Getting current file RecordSet.

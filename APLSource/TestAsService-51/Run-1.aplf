@@ -1,0 +1,51 @@
+ Run←{
+⍝ Installs Rumba as a service named "Rumba_Test_Service" in case ⍵ is empty.
+⍝ The service is then:
+⍝ * started
+⍝ * pinged
+⍝ * paused
+⍝ * continued
+⍝ * the test or the test suite are executed
+⍝ * shut down
+⍝ * de-installed
+⍝
+⍝ ⍺ is the sum of the following flags (default is 0):
+⍝ *  2 = execute the full test suite.
+⍝ *  4 = Allow to RIDE into the running service
+⍝ *  8 = Print SC messages to the session
+⍝ * 16 = Initialize Conga no matter what (needed in case a WS is loaded that already contains the DRC namespace)
+⍝
+⍝ ⍵ is 1 which enforced Conga to be re-initialized
+⍝
+⍝ ← is 1 for failure and 0 otherwise.
+     ⍺←0
+     Encode2Flags←{1↓⌽(10⍴2)⊤+/⍵}
+     (FULL RIDE REPORT_SC_MSG INIT_CONGA)←4↑Encode2Flags ⍺
+     servicename←GetServiceName ⍵
+     z←⎕CMD'sc query ',servicename
+     f←0=+/'The specified service does not exist as an installed service.'⍷∊z
+     f:'The service is currently either installed or running (or both).'⎕SIGNAL 11
+     RIDE InstallService servicename:1
+     _←(' start ',servicename)RunAsAdmin'sc'
+     Check←{'RUNNING'≡GetStateFromSC_Query ⍵}
+     rc←REPORT_SC_MSG(Check Retry)('sc query ',servicename)5
+     rc:1⊣⎕←'Service did not start'
+     _←INIT_CONGA ##.Core.InitConga''
+     _←FULL{⍺:RunTestSuite ⍵ ⋄ PingServer ⍬}⍬
+     _←('pause ',servicename)RunAsAdmin'sc'
+     Check←{(⊂GetStateFromSC_Query ⍵)∊('PAUSED' 'PAUSE_PENDING')}
+     rc←REPORT_SC_MSG(Check Retry)('sc query ',servicename)10
+     rc:1⊣⎕←'The service did not pause'
+     _←('continue ',servicename)RunAsAdmin'sc'
+     Check←{'RUNNING'≡GetStateFromSC_Query ⍵}
+     rc←REPORT_SC_MSG(Check Retry)('sc query ',servicename)5
+     rc:1⊣⎕←'The service did not continue'
+     ⎕←(##.Tests.TestPingServer ⍬)⊃'Server has answered' 'No answer from the server'
+     _←('stop ',servicename)RunAsAdmin'sc'
+     Check←{'STOPPED'≡GetStateFromSC_Query ⍵}
+     rc←REPORT_SC_MSG(Check Retry)('sc query ',servicename)15
+     rc:1⊣⎕←'The service did not stop'
+     _←('delete ',servicename)RunAsAdmin'sc'
+     Check←{∨/'The specified service does not exist as an installed service'⍷∊⍵}
+     0(Check Retry)('sc query ',servicename)10
+ }

@@ -1,0 +1,14 @@
+ DefaultRequestHeaders←{
+     ⍝ ⍺ ←→ Client
+     ⍝ ⍵ ←→ Request
+     ⍝ ← ←→ ⍵
+     h←⊂'Host'⍺.Host
+     h,←⊂'Accept' '*/*'
+     gzip←⍵.Compress∧~⍺.Secure
+     h,←gzip/⊂'Content-Encoding' 'gzip'
+     h,←⊂'Accept-Encoding'(gzip⊃'identity' 'gzip')   ⍝ identify = force no encoding!
+     pm←(⊂⍵.Method)∊'PUT' 'POST'
+     h,←pm/⊂'Content-Length'(⍕≢⍵.CompressedContent)
+     ⍵.DefaultHeaders←h
+     ⍵
+ }

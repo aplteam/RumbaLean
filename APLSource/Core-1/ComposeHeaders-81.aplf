@@ -1,0 +1,9 @@
+ ComposeHeaders←{
+     ⍝ ⍵ ←→ Request or Response
+     ⍝ ← ←→ Char vec
+     dh←⍵.DefaultHeaders
+     n v←↓⍉⊃⍵.Headers,dh
+     u←(n⍳n)=⍳⍴n
+     ⍵.ComposedHeaders←(u/n){⍺ ⍵}¨u/v
+     ∊(u/n){CrLf,⍺,': ',⍵}¨u/v
+ }

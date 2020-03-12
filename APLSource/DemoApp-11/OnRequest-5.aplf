@@ -1,0 +1,5 @@
+ OnRequest←{
+     r←##.Core.NewResponse ⍵
+     r.Content←'Hello World'
+     r
+ }

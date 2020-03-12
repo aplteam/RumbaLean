@@ -1,0 +1,4 @@
+ CreateFolder←{
+     ok←1 ⎕MKDIR ⍵
+     ⍵
+ }

@@ -1,0 +1,7 @@
+ OnRequest2←{
+     r←##.Core.NewResponse ⍵
+     d←##.HTML.NewHTMLDocument 0
+     _←d ##.HTML.Add'h1' 'Hello World!'
+     r.Content←d
+     r
+ }

@@ -1,0 +1,14 @@
+ SendResponse←{
+     ⍝ ⍵ ← Response
+     ⍵.IsFile:SendFile ⍵
+     m←⍵.Message
+     c←m.Connection
+     s←c.Server
+     ic←⍵.Chunked∧~m.HeadRequest
+     ic:m SendChunkedResponse ⍵
+     _←ComposeContent ⍵
+     _←UTF8Content ⍵
+     _←CompressContent ⍵
+     t←ComposeResponse ⍵
+     c ServerSend t ⍵.Close
+ }
