@@ -15,7 +15,7 @@ RumbaLean needs, like Rumba, at least Dyalog APL 17.0 Unicode. It does not run i
 These are the goals of this fork:
 
 * Avoid all dependencies excepts the need of the Conga DLLs required by Rumba
-* Remove namespaces that are not needed: `CSS`, `HTML`, `Doc`, `DemoApp` and `WebAdmin`
+* Remove namespaces that are not needed: `Doc`, `DemoApp` and `WebAdmin`
 * Remove functions from the `Admin` namespace that are not needed for the core functionality: `BuildPackage`, `BuildRelease`, `CopyFolder`, `CopyProject`, `LoadHelp`, `StartHelp` and `GetDrudgeReport`
 
 Notes:
