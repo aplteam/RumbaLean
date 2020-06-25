@@ -14,7 +14,13 @@ RumbaLean needs, like Rumba, at least Dyalog APL 17.0 Unicode. It does not run i
 
 These are the goals of this fork:
 
+* Allow the path to the Conga DLLs being specified as a parameter
 * Avoid all dependencies excepts the need of the Conga DLLs required by Rumba
+<<<<<<< HEAD
+* Allow trapping crashes on the exit functions (`OnStart`, `OnRequest`, ...) with an alternative mechanism: by default the [APLTree](https://github.com/aplteam/apltree/wiki "Link to the APLTree home page on GitHub") class [`HandleError`](https://github.com/aplteam/HandleError "Link to the project page on GitHub") is used for this
+* Use the Conga class rather than the namespace `DRC`
+=======
+>>>>>>> origin/master
 * Remove namespaces that are not needed: `Doc`, `DemoApp` and `WebAdmin`
 * Remove functions from the `Admin` namespace that are not needed for the core functionality: `BuildPackage`, `BuildRelease`, `CopyFolder`, `CopyProject`, `LoadHelp`, `StartHelp` and `GetDrudgeReport`
 
@@ -45,3 +51,7 @@ If that is not the case for you then you must call `InitConga` yourself once wit
 Most of the changes are actually performed by the "Make" workspace; only the changes required for finding the Conga DLLs are actually part of the fork. The reason for this is that this makes a comparison between the original Rumba project and RumbaLean much easier.
 
 The drawback of this approach is that the resulting "RumbaLean" workspace looks very different from the resulting project workspace.
+
+## Keeping RumbaLean in sync with Rumba
+
+There is a separate document HowToSyncWithRumba.md available that addresses this issue.

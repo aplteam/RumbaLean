@@ -1,2 +1,4 @@
+* 1.0.1 from 2020-06-18
+  * Bug fix in Conga.X509Cert.FindDRC  (<01710>)
 * 1.0.0 from 2020-03-12
   * Fork from Rumba

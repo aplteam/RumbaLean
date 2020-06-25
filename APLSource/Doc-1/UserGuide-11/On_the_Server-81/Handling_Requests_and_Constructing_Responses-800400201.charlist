@@ -3,7 +3,7 @@
 The NewServer function creates a new server:
 
 ~~~
-      s←NewServer 0
+      s←Rumba.Core.NewServer 0
 ~~~
 
 The server may be started up at this point, and will respond to administrative requests, but usually
@@ -29,7 +29,7 @@ And the OnRequest property specifies a callback that handles requests:
 The Start method starts the Server listening on the default port:
 
 ~~~
-      r←s Start 0
+      r←s Rumba.Core.Start 0
 ~~~
 
 Implementing a website or HTTP API in Rumba requires writing the OnRequest callback function. This

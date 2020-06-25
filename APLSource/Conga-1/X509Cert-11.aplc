@@ -104,13 +104,13 @@
               :EndIf
           :EndIf
         ∇
-    :EndProperty 
-    
-     lcase←{                                         ⍝ Lower-casification,
-     lc←'abcdefghijklmnopqrstuvwxyzåäöàæéñøü'    ⍝ (lower case alphabet)
-     uc←'ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖÀÆÉÑØÜ'    ⍝ (upper case alphabet)
-     (⍴⍵)⍴(lc,,⍵)[(uc,,⍵)⍳⍵]                     ⍝ ... of simple array.
- }
+    :EndProperty
+
+      lcase←{                                         ⍝ Lower-casification,
+          lc←'abcdefghijklmnopqrstuvwxyzåäöàæéñøü'    ⍝ (lower case alphabet)
+          uc←'ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖÀÆÉÑØÜ'    ⍝ (upper case alphabet)
+          (⍴⍵)⍴(lc,,⍵)[(uc,,⍵)⍳⍵]                     ⍝ ... of simple array.
+      }
 
       base64←{⎕IO ⎕ML←0 1             ⍝ Base64 encoding and decoding as used in MIME.
      
@@ -287,13 +287,12 @@
 
     ∇ ldrc←FindDRC dummy
     ⍝ Establish a pointer to a Conga instance or a v2 DRC namspace
-      :If ''≢LDRC ⋄ ldrc←LDRC ⍝ Ref already set
-      :Else
-          :If 9=⎕NC'#.Conga' ⍝ Else use Conga factory function
-              ldrc←#.Conga.Init''
-          :ElseIf 9=⎕NC'#.DRC'   ⍝ Look for v2 DRC namespace
-              ldrc←#.DRC
-          :EndIf
+      :If ''≢LDRC
+          ldrc←LDRC ⍝ Ref already set
+      :Else                                                 
+          ⍝ Climb up the stairs until we find DRC.
+          ⍝ This not only finds it on different levels, it also might end up in ⎕SE rather than #
+          ldrc←{9=⍵.⎕NC'Conga':⍵.Conga.Init ⋄ ∇ ⍵.##}⎕THIS  
       :EndIf
     ∇
 
@@ -344,6 +343,5 @@
     ∇
 
     :EndSection Deprecated Shared Methods
-
 
 :EndClass
