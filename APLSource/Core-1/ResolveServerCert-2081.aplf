@@ -1,0 +1,6 @@
+ ResolveServerCert←{
+     ∨/'\/'∊⍵:⍵
+     pf←GetHomeFolder
+     cf←pf,'Assets/Runtime/TestCertificates/server/'
+     cf,⍵
+ }

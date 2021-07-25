@@ -19,7 +19,8 @@
      r⍪←'Introduction' '' 1 0
      r⍪←'On_the_Server' '' 1 0
      r⍪←'ClientSideRequestsAndResponses' 'On the Client' 1 0
-     r⍪←'BuildingHTMLPages' 'Building HTML Web Pages' 1 0
+     r⍪←'Initializing_Rumba' '' 1 0
+     r⍪←'Shutting_down' 'Shutting down Rumba' 1 0
      r⍪←'ConditionalRequests' 'Conditional Requests' 1 0
      r⍪←'StatusCodeRegistry' 'HTTP Status Code Registry' 1 0
      r

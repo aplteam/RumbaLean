@@ -19,3 +19,5 @@ Now compare the two workspaces with an appropriate tool in order to figure out w
 Note that most of the changes are actually done by the "Make" workspace, so those will not show as differences at all. 
 
 On the other hand that means that changes or additions to the `WebAdmin` or the `HTML` and other sub namespaces (again, ReadMe.md provides the details) can be savely ignored because they won't be part of the final RumbaLean workspace anyway.
+
+However, in the event of a Rumba release that comes with a large amount of changes it might be easier to compare the latest `Rumba` release with its predecessor and then incorporate the differences into `RumbaLean`.

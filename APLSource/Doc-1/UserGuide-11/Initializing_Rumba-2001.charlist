@@ -1,0 +1,42 @@
+[DATA]:index=''
+
+# Initializing Rumba with `InitConga`
+
+You must call `InitConga` before you can use Rumba. You may pass an empty argument as right argument:
+
+~~~
+      Rumba.Core.InitConga ''
+~~~
+
+If called in this way Rumba makes two assumptions:
+
+1. It tries to find the required Conga DLLs itself. For details refer to the Conga documentation.
+   
+2. It uses "DEFAULT" as Conga root name
+
+
+## The Conga DLLs 
+
+You may specify a folder holding Conga DLLs as the right argument.
+The details are discussed on the page →[Conga_DLLs].
+
+## Conga "rootname"
+
+By default Conga uses "DEFAULT" as its rootname. This can become a problem in some cases. For example,
+if a developer uses Conga within her application but at the same time the Tatin package manager 
+(→[https://tatin.dev]) which also uses Conga then she most likely wants the two to be kept separate. 
+
+In order to schieve that she must specify a rootname. For that she must specify a name as second right 
+argument, for example:
+
+~~~
+      Rumba.Core.InitConga '' FOO'
+~~~
+
+There is a second problem: if you want to use Rumba with two different rootnames then you must copy 
+Rumba somewhere else since a second call to `Rumba.InitConga` _in the same instance_ would just 
+overwrite the interal references `DRC`, which is used by Rumba by naming convention.
+
+Our developer does not need to worry about this however: she would use her copy of Rumba in the 
+workspace while Tatin would use its own copy of Rumba in `⎕SE` with the rootname `TATIN`, and it would
+all work.

@@ -1,6 +1,0 @@
- HandleAdminRequest←{
-     ⍝ ⍵ ←→ Message
-     'Rumba'≢↑⍵.Segments:0
-     f←##.WebAdmin.HandleRequest
-     f TrapRequest ⍵
- }

@@ -1,3 +1,24 @@
+* 2.1.0 from 2021-07-25
+  * `InitConga` now accepts two arguments: a folder holding the Conga DLLs and a name used
+    as Conga's "rootname".\\\\
+    This change was required because we must be able to set both the folder and the rootname.
+  * `InitConga` is now supposed to be called once at an early stage, before anything else.
+  * `Connect` does not call `InitConga` anymore in order to avoid confusion.\\\\
+* 2.0.0 from 2021-07-09
+  * Breaking change: `URI` renamed to `RequestTarget`
+  * Changes in function `ErrorInRumba`:
+    * Passes 125 to `⎕OFF` in order to tell a calling process that things went north
+    * Does NOT execute `⎕OFF` at all in case a Ride session is connected to the interpreter
+  * The folder the log file is written to got renamed from `Rumba` to `Logs`
+  * Log file entries do not longer pretend to use GMT but UTC
+  * Log to session now report a HEAD request as such rather than a GET
+  * UpdateStats counts HEAD requests correcly now
+* 1.0.3 from 2021-02-23
+  * Global `∆CONGA_DLL_PATH` introduced into: `Rumba.Core`; defaults to an empty vector
+* 1.0.2 from 2020-11-19
+  * Bug fixes:
+    * Invalid guard removed from `ParseParameters`
+    * `ArchiveLog` wrongly used ⎕FUNTIE. However, it does not make a difference in RumbaLean anyway
 * 1.0.1 from 2020-06-18
   * Bug fix in Conga.X509Cert.FindDRC  (<01710>)
 * 1.0.0 from 2020-03-12

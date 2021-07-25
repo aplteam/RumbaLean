@@ -51,16 +51,16 @@
       :If err≠0
           (⍕res)⎕SIGNAL 11
       :EndIf
-
-      data←Recv cmd      
+     
+      data←Recv cmd
     ∇
 
     ∇ res←Send req
       :Access Public
       :If ⍬≡name ⋄ _←Connect ⋄ :EndIf ⍝ Connect if necessary
      
-      res←LIB.Send name req     
-    ∇                                  
+      res←LIB.Send name req
+    ∇
     
     ∇ data←Recv cmd;evt;dat;obj;err
       :Access Public

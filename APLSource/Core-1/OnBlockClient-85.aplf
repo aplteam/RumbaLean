@@ -6,6 +6,8 @@
      ⍝ Refactor with below
      l∧0=≢d:0⊣(¯2 ⎕TPUT ⎕TID)⊣⍺.State←2
      v←⍺.Messages
+     ''≡v:0                     ⍝ Yes, that did happen in the past
+     (326=⎕DR v)∧0=≢v:0         ⍝ Did happen as well: it might be an empty pointer
      i←v.ContentComplete⍳0
      m←i⊃v
      cm←d GatherResponseMessage m

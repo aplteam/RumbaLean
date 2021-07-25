@@ -1,0 +1,8 @@
+[DATA]:index=''
+
+# Shutting down Rumba with `Shutdown`
+
+If you want to be able to restart Conga, for example when developing an application, you must shut Conga
+down properly, otherwise it will complain. For that call `Shutdown`.
+
+There is no point in calling this before )OFF

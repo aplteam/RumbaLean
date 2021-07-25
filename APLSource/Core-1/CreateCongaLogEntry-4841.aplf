@@ -3,7 +3,7 @@
     ⍝ ← ←→ Log entry
      rc←↑⍵
      rc=100:''
-     t←'Conga: '
+     t←'Conga: ',(LogDate QTS),' '   ⍝ Kai
      (rc≠0)∨(4≠≢⍵):t,(⍕⍵),CrLf
      d←3⊃⍵
      1119≡d:t,(⍕⍵),CrLf
