@@ -1,6 +1,5 @@
 .acre/
-aplcore
-Dist/
-Assets/Runtime/LocallyDerived/
-
-change_history/
+./aplcore
+./Dist/
+./Assets/Runtime/LocallyDerived/
+./change_history/
