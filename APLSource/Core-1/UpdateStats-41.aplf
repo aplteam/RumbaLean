@@ -8,8 +8,8 @@
      p.CacheHits+←m.CacheIndex≥0
      p.SafeRequests+←m.Safe
      p.UnsafeRequests+←~m.Safe
-     p.GETs+←m.Method≡'GET'
-     p.HEADs+←m.Method≡'HEAD'
+     p.GETs+←(m.Method≡'GET')∧~m.HeadRequest    ⍝ Circumvent the problem that a HEAD...
+     p.HEADs+←(m.Method≡'HEAD')∨m.HeadRequest   ⍝ is a GET wuth m.HeadRequest=1; kai
      p.POSTs+←m.Method≡'POST'
      p.PUTs+←m.Method≡'PUT'
      p.DELETEs+←m.Method≡'DELETE'

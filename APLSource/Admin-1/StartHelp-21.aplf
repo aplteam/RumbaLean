@@ -1,13 +1,12 @@
  StartHelp←{
-     _←LoadHelp 0
      hc←'Rumba Help'
-     hs←#.Laguntza
-     p←#.Laguntza.CreateParms ⍬
+     hs←##.Laguntza
+     p←hs.CreateParms ⍬
      p.helpAbout←'Rumba Help System'
      p.helpCaption←hc
      p.regPath←''
-     p.folderName←(ProjectFolder 0),'Assets/Runtime/LocallyDerived/RumbaHelp'
+     p.folderName←'./Assets/Runtime/LocallyDerived/RumbaHelp'
      p.source←##.Doc
      hf←1 hs.New p
-     1:r←hf  ⍝ Make it shy
+     1:shy←hf
  }

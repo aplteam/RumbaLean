@@ -4,6 +4,7 @@
      ~⍺.LogHTTPToSession:0
      m←⍵.Message
      ts←GetCurrentUTCHttpDate''
-     ⎕←ts,': ',m.Connection.PeerAddress,' ',⍕⍺.Port':'⍵.StatusCode m.Method m.URI
+     method←m.HeadRequest⊃m.Method'HEAD'   ⍝ temp solution: HEAD is as GET reported; kai
+     ⎕←ts,': ',m.Connection.PeerAddress,' ',⍕⍺.Port':'⍵.StatusCode method m.RequestTarget
      0
  }

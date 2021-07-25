@@ -1,9 +1,9 @@
- z←Start
- z←{
+ Start←{
      _←1 ##.Core.InitConga'./CongaDLLs'
      rc←{3502⌶1}⍣(∨/'RIDE_INIT=SERVE:'⍷2 ⎕NQ #'GetCommandLine')⊣⍬ ⍝ Enable Ride when it was specified on command line
      s←##.Core.NewServer 0
-     s.Port←443
+     s.Port←8080 ⍝ Kai
+     s.Secure←0  ⍝ Kai
      _←'Strings's.⎕NS''
      s.OnRequest←'OnRequest'
      s.OnHeader←'OnRequestHeader'
@@ -13,12 +13,8 @@
      s.LogConga←1
      s.LogRumba←1
      s.LogHTTPToSession←1
-     s.Secure←1
-     tf←##.AcreConfig.ProjectFolder,'Assets/Runtime/TestCertificates/server/'
-     s.PublicCertFile←tf,'localhost-cert.pem'
-     s.PrivateKeyFile←tf,'localhost-key.pem'
      s.CertType←'DER'
      s.Context←⎕THIS
      _←s ##.Core.Start 0
      s
- }0
+ }

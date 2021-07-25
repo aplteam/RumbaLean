@@ -26,17 +26,9 @@ object that represents a request. The client object sends requests over the conn
 server and in addition accumulates Rumba Message objects that the server sends in response.
 
 The client and server sides of Rumba converse only via HTTP, and thus have no knowledge that there
-may be Rumba on both sides. The client and server functionality of Rumba may be used together or independently.
+may be Rumba on both sides. The client and server functionality of Rumba may be used together or 
+independently.
 
-## Building Web Sites
-
-Rumba has a suite of HTML and CSS functions that make it simple to build web pages.
-
-## The Rumba Web Administrator
-
-The Rumba server comes with a built-in administrative website accessible under "/Rumba" In addition
-to providing administrative services for the Rumba server, this website acts as an example of how
-to implement a Rumba website.
 
 ## Functions and Objects
 

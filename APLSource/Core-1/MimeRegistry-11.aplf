@@ -1,0 +1,7 @@
+ MimeRegistry←{
+     f←GetHomeFolder
+     n←f,'Assets/Runtime/mime.csv'
+     n←f{⍺,'Assets/Runtime/Rumba/mime.csv'}⍣(~⎕NEXISTS f,'Assets/Runtime/mime.csv')⊣n
+     t x←↓⍉(0⊃⎕CSV n ⍬ ⍬ 1)[;1 2]
+     (t,⊂'text/plain')x
+ }

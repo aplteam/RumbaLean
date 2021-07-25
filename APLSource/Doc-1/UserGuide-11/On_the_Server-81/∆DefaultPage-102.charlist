@@ -1,0 +1,6 @@
+# On_the_Server
+
+Before you can use Rumba you must call `InitConga`, see there.
+
+* →[Handling_Requests_and_Constructing_Responses]
+* →[Running_as_a_Windows_Service]

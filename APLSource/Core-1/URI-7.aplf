@@ -1,0 +1,6 @@
+ URI←{
+     ⍝ ⍵ ←→ URI object or string
+     ⍝ ← ←→ URI string or object
+     9=⎕NC'⍵':⍵ ComposeURI''
+     ParseURI ⍵
+ }

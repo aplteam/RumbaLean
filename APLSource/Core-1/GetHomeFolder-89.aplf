@@ -1,0 +1,7 @@
+ r←GetHomeFolder
+⍝ Needed in order to find assets etc.  Kai
+ :If 0<##.⎕NC'AcreConfig'           ⍝ If it is an acre project...
+     r←##.AcreConfig.ProjectFolder  ⍝ ... we ask acre where to look for it
+ :Else
+     r←↑1 ⎕NPARTS''                 ⍝ Because if it's not an acre project we expect the current dir to rule
+ :EndIf

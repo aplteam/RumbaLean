@@ -1,10 +1,13 @@
  InitConga←{
+⍝ You must call this upfront if you want to specify one or both of these:
+⍝ * A folder that holds the Conga DLLs to be used
+⍝ * A Conga root name that is not "DEFAULT"
      ⍺←0
-     folder←⍵
-     initConga←⍺
-     (~initConga)∧9=⎕NC'##.DRC':0
+     (folder rootname)←2↑(⊆⍵),⊂'DEFAULT'  ⍝ Kai: we want to be able to specify both the folde with the Conga DLLs and the Conga rootname
+     forceInitConga←⍺
+     (~forceInitConga)∧9=⎕NC'##.DRC':0
      path←GetCongaDllPath folder
-     ##.DRC←path ##.Conga.Init''
+     ##.DRC←path ##.Conga.Init rootname
      ##.Conga.X509Cert.LDRC←##.DRC
      0
  }

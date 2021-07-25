@@ -1,7 +1,9 @@
  NewServer←{
+     ⍝ ⍵ ←→ 0, '', or Site/Service Folder
      s←⎕NS''
      s.Name←''
-     s.Folder←''
+     s.Folder←{0≡⍵:'' ⋄ ⍵}⍵
+     s.Name←'Server0'
      s.Port←8080
      s.Address←''
      s.CongaTimeout←5000
@@ -17,24 +19,24 @@
      s.LogHTTPToSession←0
      s.LogFileTie←0
      s.MaxNoOfThreads←1000
-     sc rf←StatusCodeRegistry 0
-     s.StatusCodes←sc
-     s.ReasonPhrases←rf
+     s.(StatusCodes ReasonPhrases)←StatusCodeRegistry 0
+     s.(MimeTypes MimeExts)←MimeRegistry 0
+     s.(MimeLookup←MimeExts∘⍳)
      s.Version←'HTTP/1.1'
      s.ServiceTimeout←100
      s.Paused←0
-     s.QuitEvent←9876
-     s.PauseEvent←9877
-     s.ContinueEvent←9878
+     s.OnStopSCM←''
+     s.OnPauseSCM←''
+     s.OnContinueSCM←''
      s.DisplayRequests←0
      s.Trap←1
      s.UpstreamServers←⍬
      s.Stats←InitStats 0
      s.Secure←0
-     s.X509←0               ⍝ Now deprecated: use PublicCertFile, PrivateKeyFile and CertType instead
-     s.PublicCertFile←''
-     s.PrivateKeyFile←''
-     s.CertType←''          ⍝ DER or PEM
+     s.X509←0                        ⍝ Now deprecated: use PublicCertFile, PrivateKeyFile and CertType instead
+     s.PublicCertFile←'localhost-cert.pem'
+     s.PrivateKeyFile←'localhost-key.pem'
+     s.CertType←'DER'                ⍝ DER or PEM
      s.TLSFlag←64
      s
  }

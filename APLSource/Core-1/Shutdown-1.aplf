@@ -1,0 +1,7 @@
+ {r}←Shutdown
+⍝ Calling this should allow a restart of Conga
+ r←⍬
+ :If 0<##.Conga.⎕NC'⍙naedfns'
+     ##.Conga.UnloadSharedLib
+ :EndIf
+ ##.⎕EX'DRC'

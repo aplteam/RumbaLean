@@ -6,5 +6,5 @@ Applies to:{.prefix}
 
 Server{.info}
 
-Numeric vector that defaults to all HTTP status codes as defined in →[#.CarlisleGroup.Rumba.Doc.UserGuide.StatusCodeRegistry].
+Numeric vector that defaults to all HTTP status codes as defined in →[#.Rumba.Doc.UserGuide.StatusCodeRegistry].
 However, you may add your own codes. If you do, make sure that you also enhance the related vector →[ReasonPhrases].

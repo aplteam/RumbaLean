@@ -1,16 +1,20 @@
 # On the Client:<<br>>Constructing Requests and Handling Responses
 
-The NewClient function creates a new client:
+## Requirements
 
-~~~
-     c←Rumba.Core.NewClient 0
-~~~
+1. Before you can start using Rumba you must call the function →[Initializing_Rumba | `InitConga`].
 
-The NewRequest function creates a new request:
+2. The NewClient function creates a new client:
 
-~~~
-     q←Rumba.Core.NewRequest 0
-~~~
+   ~~~
+        c←Rumba.Core.NewClient 0
+   ~~~
+
+3. The NewRequest function creates a new request:
+
+   ~~~
+        q←Rumba.Core.NewRequest 0
+   ~~~
 
 Starting from here three of the possible RESTful commands are discussed: GET, HEAD and POST.
 

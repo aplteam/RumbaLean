@@ -7,4 +7,8 @@
  :Else
      z←ErrorInApplication x
      x.Connection.Server.Stats.OnRequestErrors+←1
+     :If 9=#.⎕NC'ErrorParms'        ⍝ Kai: with Plodder we want save error information
+     :AndIf 9=##.##.⎕NC'HandleError'
+         ##.##.HandleError.Process #.ErrorParms
+     :EndIf
  :EndTrap
