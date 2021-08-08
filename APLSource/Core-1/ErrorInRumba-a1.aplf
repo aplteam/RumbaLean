@@ -6,7 +6,9 @@
  :Else
      qdmx←⎕DMX
      msg←'Rumba Error: ',⍕2↑qdmx.DM
-     {}server LogRumba'Rumba Error: ',msg
+     :Trap 0 ⍝ Here a trap 0 is okay because we don't want `LogRumba` to break the app no matter what; Kai
+         {}server LogRumba'Rumba Error: ',msg
+     :EndTrap
  :EndIf
 
  :If 3501⌶0                                 ⍝ Kai: If connected to Ride we don't ⎕OFF for obvious reasons
