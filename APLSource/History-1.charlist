@@ -1,3 +1,5 @@
+* 2.1.2 from 2021-09-29
+  * The function `GetCurrentUTCHttpDate` threw spurious DOMAIN ERRORs. 
 * 2.1.1 from 2021-08-08
   * Call to `ErrorInRumba` now embraced by :Trap 0 because we have seen strange things there.
 * 2.1.0 from 2021-07-25
