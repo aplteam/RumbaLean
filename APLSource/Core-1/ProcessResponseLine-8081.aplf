@@ -4,6 +4,7 @@
      ⍵.Version←0⊃m
      ⍵.StatusCode←↑1⊃⎕VFI 1⊃m
      ⍵.StatusClass←⌊⍵.StatusCode÷100
+     2=≢m:⍵   ⍝ Kai: added in order to survive invalid host responses
      ⍵.ReasonPhrase←↑{⍺,' ',⍵}/2↓m
      ⍵
  }
