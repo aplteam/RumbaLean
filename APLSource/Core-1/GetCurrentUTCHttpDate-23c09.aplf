@@ -3,11 +3,10 @@
      ~isWin:1⊃##.DRC.GetProp'.' 'HttpDate'
      ⍝ On Windows use .NET.  Avoid opening a socket on conga dll
      ⍝ when none is required.  Prevents firewall warnings.
-     ⎕WX←1   ⍝ To circumvent bug <01927>
      _net←⎕NS''
      _net.⎕USING←,⊂'System'
      UTC←_net.DateTime.UtcNow.ToString(,⊂,'r')
-     (¯3↓UTC),'UTC'  ⍝ Kai: it's NOT GMT, it's UTC, and in summer currently that is different
+     (¯3↓UTC),'UTC'
      ⍝ Format "r" is RFC1123
      ⍝ https://docs.microsoft.com/en-us/dotnet/standard/base-types/standard-date-and-time-format-strings#RFC1123
  }
