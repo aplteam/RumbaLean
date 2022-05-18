@@ -18,7 +18,9 @@ If called in this way Rumba makes two assumptions:
 ## The Conga DLLs 
 
 You may specify a folder holding Conga DLLs as the right argument.
-The details are discussed on the page →[Conga_DLLs].
+
+Use this if you want to make sure that you are using a known version of Conga rather than what happens
+to be around.
 
 ## Conga "rootname"
 

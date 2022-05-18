@@ -4,9 +4,11 @@
     ⍝ ⍵ ←→ 0
     ⍝ ← ←→ 0
      _←DRC.Close ⍺.Name
-     _←⎕TKILL ⍺.Tid
+     ⍝ _←⎕TKILL ⍺.Tid       ⍝ See below; kai
      ⍺.State←0
      ⍺.Name←''
      ⍺.Messages←⍬
+     0=⍺.⎕NC'Tid':0         ⍝ When an attempt to open a connection fails then "Tid" might not exist; kai
+     _←⎕TKILL ⍺.Tid
      0
  }
