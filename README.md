@@ -17,13 +17,13 @@ These are the goals of this fork:
 * Allow the path to the Conga DLLs being specified as a parameter
 * Allow the specification of "rootname" (Conga)
 * Added function `Shutdown` that needs to be called in order to restart Conga
-* RumbaLean requires upfront initialisation befor Rumba can be used.
+* RumbaLean requires upfront initialisation befor Rumba can be used
 * All calls to `InitConga` are removed from the Rumba functions
-* Avoid all dependencies excepts the need of the Conga DLLs required by Rumba
+* Avoid all dependencies except the need of the Conga DLLs required by Rumba
 * Allow trapping crashes on the exit functions (`OnStart`, `OnRequest`, ...) with an alternative mechanism: by default the [APLTree](https://github.com/aplteam/apltree/wiki "Link to the APLTree home page on GitHub") class [`HandleError`](https://github.com/aplteam/HandleError "Link to the project page on GitHub") is used for this
-* Use the Conga class rather than the namespace `DRC`
-* Remove namespaces that are not required: `Doc`, `DemoApp` and `WebAdmin` for the core functionality
-* Remove functions from the `Admin` namespace that are not needed for the core functionality: `BuildPackage`, `BuildRelease`, `CopyFolder`, `CopyProject`, `LoadHelp`, `StartHelp` and `GetDrudgeReport`
+* Uses the Conga class rather than the namespace `DRC`
+* Remove namespaces that are not required for Rumba's core functionality: `Doc`, `DemoApp` and `WebAdmin` 
+* Remove functions from the `Admin` namespace that are not needed for Rumba's core functionality: `BuildPackage`, `BuildRelease`, `CopyFolder`, `CopyProject`, `LoadHelp`, `StartHelp` and `GetDrudgeReport`
 
 Notes:
 
@@ -39,7 +39,7 @@ There are two main differences between the original Rumba project and RumbaLean:
 
 * The way the Conga DLLs are located. RumbaLean expects these DLLs to be found in the current directory. If that is not the case you have to tell RumbaLean where to look for them as the first optional right argument to `InitConga`.
 
-* You may specify an optional "rootname" (Conga). This is important if you wish to use Rumba in the same workspace for two different applications. Each application needs to "see" only its own Conga objects, and for that you must specify "rootname" for one of them so that they use different ones. Default is "DEFAULT".
+* You may specify an optional "rootname" (Conga). This is important if you wish to use Rumba in the same workspace for two different applications. Each application needs to "see" only its own Conga objects, and for that you must specify "rootname" for at least one of them so that they use different ones. Default is "DEFAULT".
 
 ### Server
 
