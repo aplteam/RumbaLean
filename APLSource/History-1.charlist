@@ -1,3 +1,7 @@
+* 2.1.4 from 2022-05-16
+  * The function `Close` tries to kill its thread but that might not exist if something went
+    wrong at an earlier stage, so we now check.
+  * Changes from Rumba 0.1.12 incorporated into RumbaLean
 * 2.1.3 from 2021-12-23
   * The function `ProcessResponseLine` crashed on invalid host responses.
   * .NET-syntax in `GetCurrentUTCHttpDate`corrected.
