@@ -1,4 +1,7 @@
-./aplcore
-./Dist/
-./Assets/Runtime/LocallyDerived/
-./change_history/
+/Assets/Runtime/LocallyDerived/
+aplcore
+/Dist/
+/Misc/
+CONTINUE.dws
+/Project.dws
+/conga.crash

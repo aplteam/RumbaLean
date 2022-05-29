@@ -4,11 +4,10 @@
 ⍝      * If not empty the long error message is returned.
 ⍝      * Otherwise the error abbreviation is returned.
 ⍝   2. If ⍵ cannot be found in DRC.ErrorTable  (345 'Unknown Conga error')  is returned.
-⍝ The function can be used in constructs like:
-⍝ ⎕signal/CongaError rc
+⍝ The result can be used by:
+⍝ ⎕SIGNAL CongaError <errNo>
      rc←⍵
-     se←345     ⍝ Error to be signalled
      (abbr long)←(##.DRC.Error rc)[1 2]
-     0∊⍴long:abbr se
-     long se
+     0<≢long:⊂('EN' 345)('ENX'rc)('Message'long)
+     ⊂('EN' 345)('ENX'rc)('Message'abbr)
  }

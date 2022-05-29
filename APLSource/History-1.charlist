@@ -1,3 +1,7 @@
+* 2.1.5 from 2022-05-29
+  * The original version of Rumba swallowed the return code in case of an error, in particular
+    when a URI does not exist. This version preserves the error message as ⎕DMX.Message but 
+    also passes the return code as ⎕DMX.ENX.
 * 2.1.4 from 2022-05-16
   * The function `Close` tries to kill its thread but that might not exist if something went
     wrong at an earlier stage, so we now check.
