@@ -1,3 +1,5 @@
+* 3.0.0 from 2022-06-10
+  * Conga updated from 3.3 to 3.4
 * 2.1.5 from 2022-05-29
   * The original version of Rumba swallowed the return code in case of an error, in particular
     when a URI does not exist. This version preserves the error message as ⎕DMX.Message but 
