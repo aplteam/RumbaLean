@@ -1,6 +1,10 @@
 # RumbaLean Release Notes
 
 
+## 3.0.- from 2022-06-10
+
+* Conga 3.3 updated to Conga 3.4
+
 ## 2.1.2 from 2021-09-29
 
 * The function `GetCurrentUTCHttpDate` threw spurious DOMAIN ERRORs
