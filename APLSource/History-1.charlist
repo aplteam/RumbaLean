@@ -1,3 +1,8 @@
+* 3.0.1 from 2022-06-24
+  * Two function converted from dfns to tfns because the dfn-version all of a sudden started to
+    cause trouble (Value errors on a variable that was just defined, syntax errors that did not 
+    make any sense and disppeared anyway), so I changed them to tfns in order to have a
+    workaround until Dyalog fixes <02024>
 * 3.0.0 from 2022-06-10
   * Conga updated from 3.3 to 3.4
 * 2.1.5 from 2022-05-29

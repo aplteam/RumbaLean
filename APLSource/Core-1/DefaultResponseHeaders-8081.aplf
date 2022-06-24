@@ -1,17 +1,14 @@
- DefaultResponseHeaders←{
-     ⍝ ⍵ ←→ Response
-     ⍝ ← ←→ ⍵
-     ce←⍵.Chunked
-     h←⊂'Date'(GetCurrentUTCHttpDate'')
-     h,←⊂'Server' 'Rumba'
-     h,←⍵.Close/⊂'Connection' 'close'
-     h,←(~ce)/⊂'Content-Length'(⍕⍵.ContentLength)
-     h,←ce/⊂'Transfer-Encoding' 'chunked'
-     b←(⍵.ContentLength>0)∧~⍵.Chunked
-     h,←b/⊂'Content-Type'⍵.ContentType
-     h,←(0<≢⍵.Location)/⊂'Location'⍵.Location
-     h,←(0<≢⍵.ETag)/⊂'ETag'⍵.ETag
-     h,←(0≠⍵.LastModified)/⊂'Last-Modified'(FloatToHTTPDate ⍵.LastModified)
-     ⍵.DefaultHeaders←h
-     ⍵
- }
+ response←DefaultResponseHeaders response;ce;h;b
+ ce←response.Chunked
+ h←⊂'Date'(GetCurrentUTCHttpDate'')
+ h,←⊂'Server' 'Rumba'
+ h,←response.Close/⊂'Connection' 'close'
+ h,←(~ce)/⊂'Content-Length'(⍕response.ContentLength)
+ h,←ce/⊂'Transfer-Encoding' 'chunked'
+ b←(response.ContentLength>0)∧~response.Chunked
+ h,←b/⊂'Content-Type'response.ContentType
+ h,←(0<≢response.Location)/⊂'Location'response.Location
+ h,←(0<≢response.ETag)/⊂'ETag'response.ETag
+ h,←(0≠response.LastModified)/⊂'Last-Modified'(FloatToHTTPDate response.LastModified)
+ response.DefaultHeaders←h
+⍝Done
