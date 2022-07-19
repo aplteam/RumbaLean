@@ -1,14 +1,22 @@
- PercentDecode←{
-     dec←{⎕ML ⎕IO←0
-         ⍉16⊥16|'0123456789ABCDEF0123456789abcdef'⍳⍉↑⍵
-     }
-     v←'%20',⍵
-     p←(v≠'%')⊂v
-     p2←dec 2↑¨p
-     p3←2↓¨p
-     b←1↓∊0,¨'+'=p3     ⍝ For backwards compatability we attempt to decode + as ' '
-     r←'UTF-8'⎕UCS 1↓⊃,/p2,¨⎕UCS¨p3
-     0=+/b:r            ⍝ No blanks: done
-     (b/r)←' '
-     r
- }
+ r←PercentDecode r_;rgx;rgxu;z;t;j;i;lens;fill;m
+⍝ Rumba's own function causes a LENGTH ERROR when the data contains both a space and a multi-byte char.
+⍝ This function was taken from HttpCommands and slightly changed.
+ r←r_
+ ((r='+')/r)←' '
+ rgx←'[0-9a-fA-F]'
+ rgxu←'%[uU]',(4×≢rgx)⍴rgx ⍝ 4 characters
+ r←(rgxu ⎕R{{⎕UCS 16⊥⍉16|'0123456789ABCDEF0123456789abcdef'⍳⍵}2↓⍵.Match})r
+ i←⍸r='%'
+ :If 0≠≢i
+     i←(i≤¯2+≢r)/i
+ :AndIf 0≠≢i
+     j←i∘.+1 2
+     z←r[j]
+     t←'UTF-8'⎕UCS 16⊥⍉16|'0123456789ABCDEF0123456789abcdef'⍳z
+     lens←≢¨'UTF-8'∘⎕UCS¨t  ⍝ UTF-8 is variable length encoding
+     fill←i[¯1↓+\0,lens]
+     r[fill]←t
+     m←(≢r)⍴1
+     m[(,j),i~fill]←0
+     r←m/r
+ :EndIf

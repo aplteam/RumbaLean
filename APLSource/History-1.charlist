@@ -1,3 +1,5 @@
+* 3.0.2 from 2022-07-19
+  * Bug in PercentDecode fixed
 * 3.0.1 from 2022-06-24
   * Two function converted from dfns to tfns because the dfn-version all of a sudden started to
     cause trouble (Value errors on a variable that was just defined, syntax errors that did not 

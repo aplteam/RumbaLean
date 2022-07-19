@@ -1,7 +1,6 @@
 /Assets/Runtime/LocallyDerived/
 aplcore
-/Dist/
-/Misc/
+Dist/
 CONTINUE.dws
 /Project.dws
-/conga.crash
+conga.crash
