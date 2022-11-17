@@ -4,7 +4,9 @@
  ⍝ x ←→ Connection
  :Trap x.Server.Trap/0
      _←{
-         e d←⊃⎕TGET ⍵.Tid
+         tids←⎕TGET ⍵.Tid                   ⍝ Kai in order to avoid a LENGTH ERROR...
+         0=≢tids:∇ ⍵                        ⍝ in case there is no thread at all
+         e d←⊃tids
          d≡1119:'1119'CloseConnection ⍵
          e≢'Block':e CloseConnection ⍵
          ⍵.LastReceiveTime←QTS
