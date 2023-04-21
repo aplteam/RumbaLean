@@ -1,0 +1,12 @@
+ ProxyParameters←{
+     p←⊂'Name' ''
+     p,←⊂'Address'⍺.ProxyHost
+     p,←⊂'Port'⍺.ProxyPort
+     p,←⊂'Mode' 'Text'
+     ~⍺.ProxySecure:p
+     ⍺.X509←⎕NEW DRC.X509Cert
+     p,←⊂'X509'⍺.X509
+     p,←⊂'SSLValidation'⍺.TLSFlag
+     p,←⊂'Priority'⍺.TLSPriority
+     p
+ }
