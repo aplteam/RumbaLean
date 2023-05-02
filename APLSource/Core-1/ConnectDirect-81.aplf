@@ -1,5 +1,6 @@
  ConnectDirect←{
-     ⍝ ⍺ ←→ Client
+⍝ Proxy (function added)
+⍝ ⍺ ←→ Client
      p←⍺ ClientParameters 0
      2↑DRC.Clt p
  }

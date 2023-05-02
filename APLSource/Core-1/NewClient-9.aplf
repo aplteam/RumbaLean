@@ -7,9 +7,9 @@
      c.Host←''
      c.Port←443
      c.Secure←1
-     c.ProxyHost←''
-     c.ProxyPort←443
-     c.ProxySecure←1
+     c.ProxyHost←''        ⍝ Proxy
+     c.ProxyPort←443       ⍝ Proxy
+     c.ProxySecure←1       ⍝ Proxy
      c.CongaTimeout←5000   ⍝ Milli-seconds
      c.ClientTimeout←30    ⍝ Seconds
      c.Name←''

@@ -6,9 +6,9 @@
      (folder rootname)←(0≡⍵)⊃(2↑(⊆⍵),⊂'DEFAULT')('' 'DEFAULT')
      ⍺.State=1:0
 ⍝ Kai:     _←InitConga ''    ⍝ RumbaLean requires `InitConga` to be called early once
-     rc cn←⍺{
-         0∊⍴⍺.ProxyHost:⍺ ConnectDirect 0
-         ⍺ ConnectProxy 0
+     rc cn←⍺{                               ⍝ Proxy
+         0=≢⍺.ProxyHost:⍺ ConnectDirect 0   ⍝ Proxy
+         ⍺ ConnectProxy 0                   ⍝ Proxy
      }0
      rc≠0:⎕SIGNAL CongaError rc
      ⍺.Name←cn

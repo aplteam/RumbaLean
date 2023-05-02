@@ -1,5 +1,6 @@
  ConnectProxy←{
-     ⍝ ⍺ ←→ Client
+⍝ Proxy (function added)
+⍝ ⍺ ←→ Client
      pp←⍺ ProxyParameters 0
      rc cn←2↑DRC.Clt pp
      req←'CONNECT ',⍺.Host,':',(⍕⍺.Port),' '⍺.Version,CrLf,CrLf

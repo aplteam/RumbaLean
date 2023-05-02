@@ -1,4 +1,5 @@
  ProxyParameters←{
+⍝ Proxy (function added)
      p←⊂'Name' ''
      p,←⊂'Address'⍺.ProxyHost
      p,←⊂'Port'⍺.ProxyPort

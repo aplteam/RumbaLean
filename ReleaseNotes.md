@@ -1,7 +1,11 @@
 # RumbaLean Release Notes
 
 
-## 3.0.- from 2022-06-10
+## 3.1.0 from 2023-05-02
+
+RumbaLean can now deal with a proxy, including elevating http to https.
+
+## 3.0.0 from 2022-06-10
 
 * Conga 3.3 updated to Conga 3.4
 
