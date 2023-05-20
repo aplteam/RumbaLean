@@ -3,7 +3,7 @@
 ⍝ ⍺ ←→ Client
      pp←⍺ ProxyParameters 0
      rc cn←2↑DRC.Clt pp
-     req←'CONNECT ',⍺.Host,':',(⍕⍺.Port),' '⍺.Version,CrLf,CrLf
+     req←'CONNECT ',⍺.Host,':',(⍕⍺.Port),' ',⍺.Version,CrLf,CrLf
      rc←DRC.Send cn req
      rc←↑DRC.Wait cn ⍺.CongaTimeout
      ⍺.Secure≤⍺.ProxySecure:rc cn
