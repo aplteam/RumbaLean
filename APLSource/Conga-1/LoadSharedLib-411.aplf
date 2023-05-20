@@ -8,7 +8,7 @@
      ⍝ Dllname is Conga[x64 if 64-bit][Uni if Unicode][.so if UNIX]
      filename←'conga',DllVer,(⊃'__CU'[⎕IO+unicode]),(⊃('32' '64')[⎕IO+bit64]),⊃('' '.so' '.dylib')[⎕IO+mac+~win]
      dirsep←'/\'[⎕IO+win]
-     LibPath←DefPath path
+     LibPath←DefPath,path
      s←''
 
      :Trap 0

@@ -1,7 +1,6 @@
  TestUTF8Request_SimplePath←{
      c←R.NewClient 0
      c.Port←8080        ⍝ Kai
-     c.Secure←0         ⍝ Kai
      q←R.NewRequest 0
      q.RequestTarget←'/path1%E7%BB%8F%E7%90%86%E5%A6%82%E4%BD%95%E7%AE%A1%E7%90%86%E4%BA%A7%2Fpath1'
      q.Content←'UTF-8 in the URL with a simple path'

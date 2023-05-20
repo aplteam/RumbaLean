@@ -1,7 +1,6 @@
  TestEmptyQueryParm←{
      c←R.NewClient 0
      c.Port←8080    ⍝ Kai
-     c.Secure←0     ⍝ Kai
      path←'EmptyQuery'
      query←'Name='
      q←R.NewRequest'/',path,';',query

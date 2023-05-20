@@ -3,14 +3,12 @@
      ⍝ Get a resource that will NOT change
      c←R.NewClient 0
      c.Port←8080    ⍝ Kai
-     c.Secure←0     ⍝ Kai
      q←R.NewRequest'/ConditionalUnchanged'
      q.Method←'GET'
      r←c R.SendAndReceive q
      ⍝ Use Etag: Should NOT execute the GET, as the item has not changed.
      c2←R.NewClient 0
      c2.Port←8080    ⍝ Kai
-     c2.Secure←0     ⍝ Kai
      q2←R.NewRequest'/ConditionalUnchanged'
      q2.Method←'GET'
      q2.Headers,←⊂'If-None-Match'(r R.GetHeaderValue'ETag')
@@ -21,7 +19,6 @@
      ⍝ Use ETag: Should execute the GET. as the item has NOT changed:
      c3←R.NewClient 0
      c3.Port←8080    ⍝ Kai
-     c3.Secure←0     ⍝ Kai
      q3←R.NewRequest'/ConditionalUnchanged'
      q3.Method←'GET'
      q3.Headers,←⊂'If-Match'(r R.GetHeaderValue'ETag')
@@ -31,7 +28,6 @@
      ⍝ Use Last_Modified, Should NOT Execute the GET as the item has not changed.
      c4←R.NewClient 0
      c4.Port←8080    ⍝ Kai
-     c4.Secure←0     ⍝ Kai
      q4←R.NewRequest'/ConditionalUnchanged'
      q4.Method←'GET'
      q4.Headers,←⊂'If-Modified-Since'(r R.GetHeaderValue'Last-Modified')
@@ -42,7 +38,6 @@
      ⍝ Use Last-Modified: Should execute the GET. as the item has not changed:
      c5←R.NewClient 0
      c5.Port←8080    ⍝ Kai
-     c5.Secure←0     ⍝ Kai
      q5←R.NewRequest'/ConditionalUnchanged'
      q5.Method←'GET'
      q5.Headers,←⊂'If-Unmodified-Since'(r R.GetHeaderValue'Last-Modified')

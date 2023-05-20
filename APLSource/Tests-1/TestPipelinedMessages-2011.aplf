@@ -2,7 +2,6 @@
      ⍺←0
      c←R.NewClient 0
      c.Port←8080        ⍝ Kai
-     c.Secure←0         ⍝ Kai
      c.LogCongaEvents←⍺
      c.LogMessages←⍺
      qv←R.NewRequest¨3⍴0           ⍝ Three requests

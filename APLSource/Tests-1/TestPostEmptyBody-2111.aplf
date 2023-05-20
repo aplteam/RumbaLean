@@ -1,7 +1,6 @@
  TestPostEmptyBody←{
      c←R.NewClient 0
      c.Port←8080        ⍝ Kai
-     c.Secure←0         ⍝ Kai
      q←R.NewRequest'/HelloWorld'
      q.Method←'POST'
      q.Headers,←⊂'ContentType' 'application/x-www-form-urlencoded'

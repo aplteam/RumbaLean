@@ -1,7 +1,6 @@
  TestHeadRequest←{
      c←R.NewClient 0
      c.Port←8080        ⍝ Kai
-     c.Secure←0         ⍝ Kai
      q←R.NewRequest'/HelloWorld'
      q.Method←'HEAD'
      r←c R.SendAndReceive q

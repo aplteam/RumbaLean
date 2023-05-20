@@ -1,3 +1,9 @@
+* 3.1.1 from 2023-05-20
+  * Proxy-related bug fix in Core.ConnectProxy
+  * Bug fixes
+    * Passing a dot as path for the Conga DLLs did not work
+    * The Conga DLLs might not be found if left to defaults
+    * The file mime.cvs caused a problem
 * 3.1.0 from 2023-05-02
   * Proxy support added
 * 3.0.3 from 2022-11-17

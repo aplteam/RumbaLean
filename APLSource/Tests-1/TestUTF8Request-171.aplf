@@ -1,7 +1,6 @@
  TestUTF8Request←{
      c←R.NewClient 0
      c.Port←8080        ⍝ Kai
-     c.Secure←0         ⍝ Kai
      q←R.NewRequest 0
      path1←'%C3%A4%C3%84%C3%B6%C3%96%C3%BC%C3%9C%C3%9F'  ⍝ äÄöÖüÜß
      mp←'%C3%A4%C3%84' '%C3%B6%C3%96%C3%BC%C3%9C%C3%9F'  ⍝ äÄ öÖüÜß

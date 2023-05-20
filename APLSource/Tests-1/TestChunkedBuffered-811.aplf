@@ -2,7 +2,6 @@
      ⍺←0
      c←R.NewClient 0
      c.Port←8080    ⍝ Kai
-     c.Secure←0     ⍝ Kai
      c.Folder←GetTestDir,'/RumbaTestClient'
      c.LogConga←1
      c.LogRumba←1

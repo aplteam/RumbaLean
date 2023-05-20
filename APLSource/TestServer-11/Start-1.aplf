@@ -1,9 +1,9 @@
  Start←{
-     _←1 ##.Core.InitConga'./CongaDLLs'
+     _←1 ##.Core.InitConga(↑⎕NPARTS ⎕WSID),'CongaDLLs/'
      rc←{3502⌶1}⍣(∨/'RIDE_INIT=SERVE:'⍷2 ⎕NQ #'GetCommandLine')⊣⍬ ⍝ Enable Ride when it was specified on command line
      s←##.Core.NewServer 0
      s.Port←8080 ⍝ Kai
-     s.Secure←0  ⍝ Kai
+     s.Secure←1  ⍝ Kai
      _←'Strings's.⎕NS''
      s.OnRequest←'OnRequest'
      s.OnHeader←'OnRequestHeader'
