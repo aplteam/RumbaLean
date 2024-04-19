@@ -1,11 +1,23 @@
- {z}←ServerLoop x
+ {z}←ServerLoop server;qdmx;TRAP
  ⍝ ⍵ ←→ a Server space
  ⎕TNAME←'Rumba Server Loop'
  :Trap x.Trap/0
      z←{
          _←ServerWait ⍵
          ∇ ⍵
-     }x
+     }server
  :Else
-     ErrorInRumba x
+     :Trap 11
+         {}1 ⎕NPARTS''.                             ⍝ On non-Windows platforms this statement will cause a DOMAIN ERROR in case the working dir has disappeared
+         ErrorInRumba server
+     :Else
+         {}server LogRumba'It appears that the current dir has disappeared...'
+         :If 3501⌶0                                 ⍝ Kai: If connected to Ride we don't ⎕OFF for obvious reasons
+             TRAP←⎕TRAP
+             ⎕TRAP←0 'S'
+             ∘∘∘                                    ⍝ Check it out, dear ⎕AN
+         :Else
+             ⎕OFF 125                               ⍝ Kai
+         :EndIf
+     :EndTrap
  :EndTrap
