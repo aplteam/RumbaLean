@@ -1,3 +1,5 @@
+* 3.2.1 from 2024-04-19
+  * Bug fix for a problem that was introduced with 3.2.0
 * 3.2.0 from 2024-04-19
   * Rumba crashed on non-Windows platforms in case the current directory had disappeared.
 * 3.1.1 from 2023-05-20

@@ -1,7 +1,7 @@
  {z}←ServerLoop server;qdmx;TRAP
  ⍝ ⍵ ←→ a Server space
  ⎕TNAME←'Rumba Server Loop'
- :Trap x.Trap/0
+ :Trap server.Trap/0
      z←{
          _←ServerWait ⍵
          ∇ ⍵
