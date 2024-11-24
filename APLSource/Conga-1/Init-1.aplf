@@ -2,7 +2,7 @@
  :If 0=⎕NC'libpath' ⋄ libpath←'' ⋄ :EndIf
 
  :Trap 0
-     lcase←0∘(819⌶)
+     lcase←{2::0(819⌶)⍵ ⋄ ¯3 ⎕C ⍵} ⍝ Map to lower case; 819 withdrawn in v20.0
      z←lcase'A' ⍝ Try to use it
  :Else
      lowerAlphabet←'abcdefghijklmnopqrstuvwxyzáâãçèêëìíîïðòóôõùúûýàäåæéñöøü'

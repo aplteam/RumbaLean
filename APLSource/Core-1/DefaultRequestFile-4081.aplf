@@ -4,7 +4,8 @@
      t←⍵.RequestTarget
      d←⍵.Connection.Server.Folder
      f←d,t,(t≡,'/')/'index.html'
-     x←(819⌶)2⊃⎕NPARTS f
+     lcase←{2::0(819⌶)⍵ ⋄ ¯3 ⎕C ⍵} ⍝ Map to lower case; 819 withdrawn in v20.0
+     x←lcase 2⊃⎕NPARTS f
      e←⎕NEXISTS f
      e∧x≢'':1 f x
      (~e)∧x≢'':0 f x
