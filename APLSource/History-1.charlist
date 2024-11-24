@@ -1,3 +1,6 @@
+* 3.3.1 from 2024-11-24
+  * 819⌶ replaced by ¯3 ⎕C
+  * Bug fix: error trapping with HandleError brought back (Server only)
 * 3.3.0 from 2024-04-20
   The changes made in versions 3.2.0 and 3.2.1 were erroneous and therefore reverted
 * 3.2.1 from 2024-04-19

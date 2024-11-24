@@ -1,9 +1,34 @@
 # RumbaLean Release Notes
 
 
+## 3.3.1 from 2024-11-24
+
+ * `819⌶` replaced by `¯3 ⎕C`
+ * Bug fix: error trapping with HandleError brought back (Server only)
+
+## 3.3.0 from 2024-04-20
+
+  * The changes made in versions 3.2.0 and 3.2.1 were erroneous and therefore reverted
+
+## 3.2.1 from 2024-04-19
+
+  * Bug fix for a problem that was introduced with 3.2.0
+
+## 3.2.0 from 2024-04-19
+
+  * Rumba crashed on non-Windows platforms in case the current directory had disappeared.
+
+## 3.1.1 from 2023-05-20
+
+  * Proxy-related bug fix in Core.ConnectProxy
+  * Bug fixes
+    * Passing a dot as path for the Conga DLLs did not work
+    * The Conga DLLs might not be found if left to defaults
+    * The file mime.cvs caused a problem
+
 ## 3.1.0 from 2023-05-02
 
-RumbaLean can now deal with a proxy, including elevating http to https.
+* RumbaLean can now deal with a proxy, including elevating http to https.
 
 ## 3.0.0 from 2022-06-10
 
@@ -41,3 +66,4 @@ RumbaLean can now deal with a proxy, including elevating http to https.
 ## 1.0.0 from 2020-03-12
 
 * Fork from Rumba, based on version 0.1.6
+

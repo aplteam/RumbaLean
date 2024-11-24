@@ -20,4 +20,9 @@ Note that most of the changes are actually done by the "Make" workspace, so thos
 
 On the other hand that means that changes or additions to the `WebAdmin` or the `HTML` and other sub namespaces (again, ReadMe.md provides the details) can be safely ignored because they won't be part of the final RumbaLean workspace anyway.
 
-However, in the event of a Rumba release that comes with a large amount of changes it might be easier to compare the latest `Rumba` release with its predecessor and then incorporate the differences into `RumbaLean`.
+Note that in the event of a Rumba release that comes with a large amount of changes it might be easier to use a different approach:
+
+1. Compare the latest `Rumba` release with its predecessor 
+2. Incorporate the differences into `RumbaLean` one by one
+
+
