@@ -1,4 +1,4 @@
- {z}←ServerLoop server;qdmx;TRAP
+ {z}←ServerLoop server;TRAP
  ⍝ ⍵ ←→ a Server space
  ⎕TNAME←'Rumba Server Loop'
  :Trap server.Trap/0
@@ -7,12 +7,5 @@
          ∇ ⍵
      }server
  :Else
-     qdmx←⎕DMX                                  ⍝ KaiL Preserve the original error information
-     :If 3501⌶0                                 ⍝ Kai: If connected to Ride we don't ⎕OFF for obvious reasons
-         TRAP←⎕TRAP
-         ⎕TRAP←0 'S'
-         ∘∘∘                                    ⍝ Check it out, dear ⎕AN
-     :Else
-         ⎕OFF 125                               ⍝ Kai
-     :EndIf
+     ErrorInRumba x
  :EndTrap
