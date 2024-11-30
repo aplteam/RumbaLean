@@ -8,7 +8,7 @@ Rumba (and therefore RumbaLean) are an almost full implementation of the HTTP 1.
 
 ## Requirements
 
-RumbaLean needs at least Dyalog APL 18.0 Unicode.
+RumbaLean needs at least Dyalog APL 18.2 Unicode.
 
 ## Why this fork
 
@@ -58,3 +58,4 @@ The drawback of this approach is that the resulting "RumbaLean" workspace looks 
 ## Keeping RumbaLean in sync with Rumba
 
 There is a separate document HowToSyncWithRumba.md available that addresses this issue.
+
