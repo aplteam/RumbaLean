@@ -1,11 +1,10 @@
- {z}←ServerLoop server;TRAP
+ {z}←ServerLoop x
  ⍝ ⍵ ←→ a Server space
  ⎕TNAME←'Rumba Server Loop'
- :Trap server.Trap/0
+ :Trap x.Trap/0
      z←{
-         _←ServerWait ⍵
-         ∇ ⍵
-     }server
+         ∇ ⍵⊣ServerWait ⍵
+     }x
  :Else
      ErrorInRumba x
  :EndTrap
