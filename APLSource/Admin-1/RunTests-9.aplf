@@ -1,7 +1,8 @@
  RunTests←{
      ⎕←'Did you start the test server in a separate instance? (press <enter> to continue)'
      _←⍞
-     _←##.Core.InitConga(↑⎕NPARTS ⎕WSID),'CongaDLLs/'   ⍝ Kai
+     _←'Conga'##.⎕CY'conga'
+     _←##.Core.InitConga''
      ##.Tests.R←##.Core
      f←('T'##.Tests.⎕NL ¯3)~⊂'Test_ServerShutdown'
      b←RunTest¨f
