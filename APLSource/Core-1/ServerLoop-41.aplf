@@ -1,10 +1,31 @@
- {z}←ServerLoop x
- ⍝ ⍵ ←→ a Server space
+ {server}←ServerLoop server;msg;TRAP;⎕TRAP
+⍝ ⍵ ←→ a Server space. Changed according to my needs: Kai2#
+⍝ ⎕TRAP must be localized for "C" (cut back) to work, but it must also honour
+⍝ the global setting when #.ErrorParms does exist
  ⎕TNAME←'Rumba Server Loop'
- :Trap x.Trap/0
-     z←{
-         ∇ ⍵⊣ServerWait ⍵
-     }x
+ :If server.Trap
+     :If 9=#.⎕NC'ErrorParms'                            ⍝ Kai2: ErrorParms must be set by caller (Plodder) if required
+     :AndIf 9=##.##.⎕NC'HandleError'                    ⍝ However, in order to run Rumba's own tests we need to check this as well
+         TRAP←⎕TRAP                                     ⍝ Yes, that works!
+         ⎕TRAP←TRAP
+         ⎕TRAP,←⊂#.ErrorParms.signal'C' '→∆CarryOn'     ⍝ HandleError will signal this after having processed an crash, so
+     :Else
+         ⎕TRAP←0 'C' '→∆CarryOn'                        ⍝ No HandleError, so we can only gracefully give up
+     :EndIf
  :Else
-     ErrorInRumba x
- :EndTrap
+     ⎕TRAP←0 'S'
+ :EndIf
+ {}{
+     ∇ ⍵⊣ServerWait ⍵                                   ⍝ Recursive loop
+ }server
+ :Return
+
+∆CarryOn:                                               ⍝ -------------------------------------------
+ :If IsRideSession                                      ⍝ Kai2: If connected to Ride we don't ⎕OFF for obvious reasons
+     TRAP←⎕TRAP
+     ⎕TRAP←0 'S'
+     ∘∘∘                                                ⍝ Check it out, dear ⎕AN
+ :EndIf
+
+ ErrorInRumba server
+⍝Done

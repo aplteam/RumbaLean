@@ -1,3 +1,6 @@
+* 3.4.1 from 2026-09-05
+  * Although a correct version of Rumba was distributed with Plodder, a wrong version (with the same
+    version number, strangeky) was released. 
 * 3.4.0 from 2025-07-11
   * In case no path for the Conga DLLs is specified RumbaLean now goes for the default: 
     the ones of the currently running version of Dyalog

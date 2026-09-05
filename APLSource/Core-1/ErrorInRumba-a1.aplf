@@ -1,8 +1,6 @@
  {r}←ErrorInRumba server;qdmx;msg;TRAP
- :If 9=#.⎕NC'ErrorParms'                    ⍝ Kai: with Plodder we want to save error information
- :AndIf 9=##.##.⎕NC'HandleError'
-     ##.##.HandleError.Process #.ErrorParms
- :Else
+ :If 0=#.⎕NC'ErrorParms'
+ :OrIf 0=##.##.⎕NC'HandleError'
      qdmx←⎕DMX
      msg←'Rumba Error: ',⍕2↑qdmx.DM
      :Trap 0 ⍝ Here a trap 0 is okay because we don't want `LogRumba` to break the app no matter what; Kai
@@ -16,5 +14,5 @@
      ∘∘∘                                    ⍝ Check it out, dear ⎕AN
  :EndIf
 
- ⎕OFF 125                                   ⍝ Kai:
+ ⎕OFF 125                                   ⍝ Kai: Enforce restart
 ⍝Done
