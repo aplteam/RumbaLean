@@ -1,8 +1,10 @@
  ErrorInApplication←{
+     ⍝ ⍺ ←→ the ⎕DMX to be reported; defaults to the current one
      ⍝ ⍵ ←→ (Request) Message
      ⍝ ← ←→ Response
+     ⍺←⎕DMX
      s←⍵.Connection.Server
-     e←'Application Error: ',⍕2↑⎕DMX.DM
+     e←'Application Error: ',⍕2↑⍺.DM
      _←s LogRumba e
      ⍵ Respond 500 1
  }

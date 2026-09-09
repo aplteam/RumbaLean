@@ -16,6 +16,11 @@
      _←c R.Close 0
      r.Content≢'':1
      r2.Content≢'This is a chunked message':1
-     r.Headers≢r2.Headers:1
+     RemoveDate←{
+         ⍝ "Date" has a resolution of one second, so the HEAD and the GET may straddle
+         ⍝ a boundary and differ with nothing actually being wrong; Kai
+         ((⊂'date')≢¨0⊃¨⍵)/⍵                 ⍝ Names arrive in lower case, see ProcessHeader
+     }
+     (RemoveDate r.Headers)≢RemoveDate r2.Headers:1
      0
  }

@@ -1,6 +1,8 @@
  ErrorInConnection←{
+     ⍝ ⍺ ←→ the ⎕DMX to be reported; defaults to the current one
      ⍝ ⍵ ←→ Connection
+     ⍺←⎕DMX
      ⍵.Server.Stats.OnConnectionErrors+←1
-     e←'Connection Error: ',⍕2↑⎕DMX.DM
+     e←'Connection Error: ',⍕2↑⍺.DM
      e CloseConnection ⍵
  }

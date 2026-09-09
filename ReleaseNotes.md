@@ -1,11 +1,13 @@
 # RumbaLean Release Notes
 
 
-## 3.4.1 from 2026-09-05
- * ...
+## 3.4.1 from 2026-09-09
+ * Although a correct version of Rumba was distributed with Plodder, 
+   a wrong version (with the same version number, strangely) was released
 
 ## 3.4.0 from 2025-07-11
- * ...
+ * In case no path for the Conga DLLs is specified RumbaLean now goes 
+   for the default: the ones of the currently running version of Dyalog
 
 ## 3.3.1 from 2024-11-24
  * `819⌶` replaced by `¯3 ⎕C`
@@ -58,5 +60,6 @@
 
 ## 1.0.0 from 2020-03-12
 * Fork from Rumba, based on version 0.1.6
+
 
 

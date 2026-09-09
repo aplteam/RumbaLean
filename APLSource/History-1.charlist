@@ -1,6 +1,8 @@
-* 3.4.1 from 2026-09-05
+* 3.4.1 from 2026-09-09
   * Although a correct version of Rumba was distributed with Plodder, a wrong version (with the same
-    version number, strangeky) was released. 
+    version number, strangely) was released. 
+  * Error trapping problem in ServerLoop fixed
+  * Erros in OnHeader where trapped but not reported. They are now logged and a 500 is returned,
 * 3.4.0 from 2025-07-11
   * In case no path for the Conga DLLs is specified RumbaLean now goes for the default: 
     the ones of the currently running version of Dyalog

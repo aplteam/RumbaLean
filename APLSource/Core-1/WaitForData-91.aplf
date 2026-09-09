@@ -1,4 +1,4 @@
- WaitForData x;_
+ WaitForData x;_;dmx
  ⎕TNAME←'Rumba Wait For Data'
  x.Tid←⎕TID
  ⍝ x ←→ Connection
@@ -16,6 +16,12 @@
          ∇ ⍵
      }x
  :Else
-     _←ErrorInConnection x
-     x.Connection.Server.Stats.OnConnectionErrors+←1
+     dmx←⎕DMX                   ⍝ Kai: keep the original error; HandleError overwrites ⎕DMX
+     :If 9=#.⎕NC'ErrorParms'    ⍝ Kai: with Plodder we want save error information. This catches
+     :AndIf 9=##.##.⎕NC'HandleError'          ⍝ what OnHeader throws, which nothing else reports
+         :Trap 0                ⍝ Kai: this thread cannot act on HandleError's signal, so swallow it
+             ##.##.HandleError.Process #.ErrorParms
+         :EndTrap
+     :EndIf
+     _←dmx ErrorInConnection x
  :EndTrap

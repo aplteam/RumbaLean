@@ -8,7 +8,7 @@
      :EndTrap
  :EndIf
 
- :If 3501⌶0                                 ⍝ Kai: If connected to Ride we don't ⎕OFF for obvious reasons
+ :If IsRideSession                          ⍝ Kai: If connected to Ride we don't ⎕OFF for obvious reasons
      TRAP←⎕TRAP
      ⎕TRAP←0 'S'
      ∘∘∘                                    ⍝ Check it out, dear ⎕AN
