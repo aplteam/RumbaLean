@@ -1,3 +1,5 @@
+* 3.4.2 from 2026-09-11
+  `OnServerTimeout` must follow the lead of `ServerLoop` in order to make error trapping really usefull.
 * 3.4.1 from 2026-09-09
   * Although a correct version of Rumba was distributed with Plodder, a wrong version (with the same
     version number, strangely) was released. 

@@ -1,9 +1,28 @@
- OnServerTimeout←{
-     ⍝ ⍺ ←→ Server
-     _←CloseIdleConnections ⍺
-     _←CheckUpstreamHealth ⍺
-     ⍺.OnCongaTimeout≡'':0
-     f←⍺.Context⍎⍺.OnCongaTimeout
-     _←f ⍺
-     0
- }
+ r←server OnServerTimeout msg;TRAP;⎕TRAP;fn
+⍝ ⍺ ←→ a Server space. Changed according to my needs: Kai2#
+⍝ ⎕TRAP must be localized for "C" (cut back) to work, but it must also honour
+⍝ the global setting when #.ErrorParms does exist
+ r←0
+ :If server.Trap
+     :If 9=#.⎕NC'ErrorParms'                            ⍝ Kai2: ErrorParms must be set by caller (Plodder) if required
+     :AndIf 9=##.##.⎕NC'HandleError'                    ⍝ However, in order to run Rumba's own tests we need to check this as well
+         TRAP←⎕TRAP                                     ⍝ Yes, that works!
+         ⎕TRAP←TRAP
+         ⎕TRAP←(⊂#.ErrorParms.signal'C' '→∆CarryOn'),⎕TRAP  ⍝ HandleError signals this when it is done.
+     :Else
+         ⎕TRAP←0 'C' '→∆CarryOn'                        ⍝ No HandleError, so we can only gracefully give up
+     :EndIf
+ :Else
+     ⎕TRAP←0 'S'
+ :EndIf
+ {}CloseIdleConnections server
+ {}CheckUpstreamHealth server
+ :If server.OnCongaTimeout≢''
+     fn←server.Context⍎server.OnCongaTimeout
+     {}fn server
+ :EndIf
+ :Return
+
+∆CarryOn:                                               ⍝ -------------------------------------------
+ ErrorInRumba server
+⍝Done
