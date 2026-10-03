@@ -1,27 +1,25 @@
- WaitForData x;_;dmx
+ WaitForData x;_;dmx;⎕TRAP
+⍝ x ←→ Connection
+⍝ ⎕TRAP must be localized for "C" (cut back) to work
+ :If 0<⎕NC'#.ErrorParms.signal'
+     ⎕TRAP←⊂#.ErrorParms.signal'C' '→∆CarryOn'
+ :EndIf
  ⎕TNAME←'Rumba Wait For Data'
  x.Tid←⎕TID
- ⍝ x ←→ Connection
- :Trap x.Server.Trap/0
-     _←{
-         tids←⎕TGET ⍵.Tid                   ⍝ Kai in order to avoid a LENGTH ERROR...
-         0=≢tids:∇ ⍵                        ⍝ in case there is no thread at all
-         e d←⊃tids
-         d≡1119:'1119'CloseConnection ⍵
-         e≢'Block':e CloseConnection ⍵
-         ⍵.LastReceiveTime←QTS
-         m←↑⌽⍵.Messages
-         cm←d GatherRequestMessage m
-         _←HandleRequest¨cm
-         ∇ ⍵
-     }x
- :Else
-     dmx←⎕DMX                   ⍝ Kai: keep the original error; HandleError overwrites ⎕DMX
-     :If 9=#.⎕NC'ErrorParms'    ⍝ Kai: with Plodder we want save error information. This catches
-     :AndIf 9=##.##.⎕NC'HandleError'          ⍝ what OnHeader throws, which nothing else reports
-         :Trap 0                ⍝ Kai: this thread cannot act on HandleError's signal, so swallow it
-             ##.##.HandleError.Process #.ErrorParms
-         :EndTrap
-     :EndIf
-     _←dmx ErrorInConnection x
- :EndTrap
+ _←{
+     tids←⎕TGET ⍵.Tid
+     0=≢tids:∇ ⍵                        ⍝ in case there is no thread at all
+     (e d)←⊃tids
+     d≡1119:'1119'CloseConnection ⍵
+     e≢'Block':e CloseConnection ⍵
+     ⍵.LastReceiveTime←QTS
+     m←↑⌽⍵.Messages
+     cm←d GatherRequestMessage m
+     _←HandleRequest¨cm
+     ∇ ⍵
+ }x
+ :Return
+
+∆CarryOn:
+ ErrorInRumba ⍬
+⍝Done

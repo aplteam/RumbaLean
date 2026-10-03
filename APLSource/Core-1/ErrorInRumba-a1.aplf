@@ -1,18 +1,14 @@
- {r}←ErrorInRumba server;qdmx;msg;TRAP
- :If 0=#.⎕NC'ErrorParms'
- :OrIf 0=##.##.⎕NC'HandleError'
-     qdmx←⎕DMX
-     msg←'Rumba Error: ',⍕2↑qdmx.DM
-     :Trap 0 ⍝ Here a trap 0 is okay because we don't want `LogRumba` to break the app no matter what; Kai
+ {r}←{server}ErrorInRumba dummy;qdmx;msg
+ qdmx←⎕DMX
+ msg←'Rumba Error: ',⍕2↑qdmx.DM
+ :If 0<⎕NC'server'
+     :Trap 0
          {}server LogRumba msg
      :EndTrap
  :EndIf
-
- :If IsRideSession                          ⍝ Kai: If connected to Ride we don't ⎕OFF for obvious reasons
-     TRAP←⎕TRAP
+ :If IsRideSession
      ⎕TRAP←0 'S'
-     ∘∘∘                                    ⍝ Check it out, dear ⎕AN
+     ∘∘∘                          ⍝ Check it out, dear ⎕AN
+ :Else
+     ⎕OFF 125
  :EndIf
-
- ⎕OFF 125                                   ⍝ Kai: Enforce restart
-⍝Done

@@ -1,17 +1,17 @@
- z←(f TrapRequest)x;t;dmx
+ z←(f TrapRequest)x;t;⎕TRAP;dmx
 ⍝ x ←→ Request Message
 ⍝ f ←→ OnRequest Function
  t←x.Connection.Server.Trap
- :Trap t/0
-     z←f x
- :Else
-     dmx←⎕DMX                   ⍝ Kai: keep the application's error; HandleError overwrites ⎕DMX
-     :If 9=#.⎕NC'ErrorParms'    ⍝ Kai: with Plodder we want save error information
-     :AndIf 9=##.##.⎕NC'HandleError'
-         :Trap 0                ⍝ Kai: HandleError signals when it is done. On a request that signal must
-             ##.##.HandleError.Process #.ErrorParms   ⍝ not escape, or the 500 never reaches the client
-         :EndTrap
-     :EndIf
-     z←dmx ErrorInApplication x
-     x.Connection.Server.Stats.OnRequestErrors+←1
- :EndTrap
+ :If 0<⎕NC'#.ErrorParms.signal'
+     ⎕TRAP←t/⊂#.ErrorParms.signal'C' '→∆CarryOn'
+ :EndIf
+ z←f x
+ :Return
+⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝
+
+∆CarryOn:
+ ⎕TRAP←0 'S'
+ dmx←⎕DMX
+ z←dmx ErrorInApplication x
+ x.Connection.Server.Stats.OnRequestErrors+←1
+⍝Done

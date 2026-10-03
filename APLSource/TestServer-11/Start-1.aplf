@@ -1,5 +1,8 @@
  Start←{
      _←'Conga'##.⎕CY'conga'   ⍝ Kai: dynamic loading of Conga
+     _←⎕SE.Tatin.LoadPackages'https://tatin.dev/HandleError'#
+     _←#.⎕SHADOW'ErrorParms'
+     #.ErrorParms←#.HandleError.CreateParms
      _←1 ##.Core.InitConga''
      _←HandleRide
      s←##.Core.NewServer 0
