@@ -28,7 +28,7 @@ These are the goals of this fork:
 
 Notes:
 
-* Main goal is to keep Rumba's core functionality in line with the original project 
+* RumbaLean is maintained independently; see "Relationship to Rumba" below
 * The test cases are still part of the project
 * The help is available in a sub folder - execute `RumbaHelp/ViewHelp.exe`
 * In order to build a new version load `Make\Make.dws`
@@ -52,13 +52,17 @@ Call the function `Core.Start`. You may provide the folder that carries the Cong
 
 ## Build process
 
-Most of the changes are actually performed by the "Make" workspace. Any changes made to the code are marked up with comments like `⍝ Kai`. The reason for this is that this makes a comparison between the original Rumba project and RumbaLean easier.
+Most of the changes are actually performed by the "Make" workspace.
 
-The drawback of this approach is that the resulting "RumbaLean" workspace looks very different from the project workspace.
+Code inherited from Rumba that was changed carries a comment like `⍝ Kai`. Those markers were introduced to make a comparison with the original project easier. They are kept where they explain why something differs, but new work does not need them.
 
-## Keeping RumbaLean in sync with Rumba
+Note that the resulting "RumbaLean" workspace looks very different from the project workspace.
 
-There is a separate document HowToSyncWithRumba.md available that addresses this issue.
+## Relationship to Rumba
+
+RumbaLean is developed independently of Carlisle's Rumba. Changes made there are not merged in as a matter of course: the project is looked at now and then, and anything worth having is picked up deliberately.
+
+The differences listed under "Why this fork" are the ones that matter. They are structural rather than cosmetic, which is why a change made in one project rarely applies cleanly to the other.
 
 
 
