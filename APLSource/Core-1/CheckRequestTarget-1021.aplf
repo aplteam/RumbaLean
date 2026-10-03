@@ -1,0 +1,10 @@
+ CheckRequestTarget←{
+     ⍝ ⍵ ←→ Request(s)
+     ⍝ ← ←→ 0; signals a DOMAIN ERROR when a "RequestTarget" is not simple character data
+     ⍝ Composing the request line from such a target would produce a nested or numeric one,
+     ⍝ which no server can parse, and the client would then sit waiting for a reply that is
+     ⍝ never coming - which looks like a hang and says nothing about what went wrong.
+     ⍝ Called before a connection is opened, so that a refused request leaves nothing behind.
+     ∧/{(0=10|⎕DR ⍵)∧1≥≢⍴⍵}¨(,⍵).RequestTarget:0
+     '"RequestTarget" must be a simple character vector'⎕SIGNAL 11
+ }

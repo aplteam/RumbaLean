@@ -15,3 +15,6 @@ wait for a response. Use the →[Receive] method to wait for a response. To pipe
 may be called repeatedly without intervening calls to Receive. Eventually, Receive should be
 called as many times as Send, in order to receive all of the responses.
 
+If the RequestTarget of a Request is not a simple character vector, a DOMAIN ERROR is signalled
+before a connection to the server is opened.
+

@@ -2,6 +2,7 @@
      ⍝ ⍺ ←→ Client
      ⍝ ⍵ ←→ Request(s)
      ⍝ ← ←→ Message(s)
+     _←CheckRequestTarget ⍵  ⍝ Before connecting, so a refused request leaves nothing open
      _←⍺ Connect 0           ⍝ Ensure connected
      l←↑⌽⍵                   ⍝ Last Messasge
      cc←'Connection' 'close' ⍝ ... no more

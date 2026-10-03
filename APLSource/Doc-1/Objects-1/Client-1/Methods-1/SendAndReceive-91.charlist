@@ -16,3 +16,6 @@ establishes a connection, sends requests, receives results and closes the connec
 The argument is one or more Requests, and the result is one or more corresponding response
 Messages.  It encapsulates all of the functionality of the Connect, Send, Receive and Close methods.
 
+If the RequestTarget of a Request is not a simple character vector, a DOMAIN ERROR is signalled
+before a connection to the server is opened.
+

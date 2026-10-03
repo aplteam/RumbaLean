@@ -2,6 +2,7 @@
      ⍝ ⍺ ←→ Client
      ⍝ ⍵ ←→ Request
      ⍝ ← ←→ Message (Response)
+     _←CheckRequestTarget ⍵
      _←⍺ Connect 0
      0≠≢⍺.Messages:'Unreceived messages in queue'⎕SIGNAL 444
      ⍵.Headers,←⊂'Expect' '100-continue'
