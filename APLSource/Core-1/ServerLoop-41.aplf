@@ -5,9 +5,8 @@
      ⎕TRAP←⊂#.ErrorParms.signal'C' '→∆CarryOn'
  :EndIf
  ⎕TNAME←'Rumba Server Loop'
- {}{
-     ∇ ⍵⊣ServerWait ⍵   ⍝ Recursive loop
- }server
+ {}{¯1≡ServerWait ⍵:0 ⋄ ∇ ⍵}server
+ {}server LogRumba'Server stopped: the Conga server object has gone'
  :Return
 
 ∆CarryOn:

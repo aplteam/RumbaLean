@@ -4,7 +4,8 @@
      _←s LogConga r
      rc←↑r
      100=rc:RunHouseKeeping s
-     rc≢0:.
+     1010=rc:¯1     ⍝ The Conga object could not be found anymore
+     rc≢0:∘∘∘       ⍝ What's that?!
      _←HouseKeepingIfOverdue s
      cn←1⊃{('.'≠⍵)⊂⍵}1⊃r
      (e d)←r[2 3]
