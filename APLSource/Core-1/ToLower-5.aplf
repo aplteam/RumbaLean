@@ -1,6 +1,5 @@
  ToLower←{
      ⍝ ⍵ ←→ Character Array
      ⍝ ← ←→ Converted to lower case
-     2::0(819⌶)⍵ ⍝ 819 withdrawn in v20.0
      ¯3 ⎕C ⍵
  }

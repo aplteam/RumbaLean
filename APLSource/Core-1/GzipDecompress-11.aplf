@@ -1,0 +1,3 @@
+ r←GzipDecompress ints
+⍝ Cover for `¯3(219⌶)`: decompresses a vector of gzip-compressed signed 8-bit integers
+ r←¯3(219⌶)ints

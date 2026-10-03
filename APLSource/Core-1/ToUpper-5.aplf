@@ -1,6 +1,5 @@
  ToUpper←{
      ⍝ ⍵ ←→ Character Array
      ⍝ ← ←→ Converted to upper case
-     2::1(819⌶)⍵ ⍝ 819 withdrawn in v20.0
      1 ⎕C ⍵ ⍝ upper case conversion
  }

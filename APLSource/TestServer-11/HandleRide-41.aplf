@@ -1,0 +1,3 @@
+ r←HandleRide
+⍝ Enable Ride when it was specified on command line
+ r←{3502⌶1}⍣(∨/'RIDE_INIT=SERVE:'⍷2 ⎕NQ #'GetCommandLine')⊣⍬

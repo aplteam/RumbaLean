@@ -1,0 +1,3 @@
+ r←GzipCompress ints
+⍝ Cover for `3(219⌶)`: compresses a vector of signed 8-bit integers with gzip
+ r←3(219⌶)ints

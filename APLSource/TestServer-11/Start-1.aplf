@@ -1,7 +1,7 @@
  Start←{
      _←'Conga'##.⎕CY'conga'   ⍝ Kai: dynamic loading of Conga
      _←1 ##.Core.InitConga''
-     rc←{3502⌶1}⍣(∨/'RIDE_INIT=SERVE:'⍷2 ⎕NQ #'GetCommandLine')⊣⍬ ⍝ Enable Ride when it was specified on command line
+     _←HandleRide
      s←##.Core.NewServer 0
      s.Port←8080 ⍝ Kai
      s.Secure←1  ⍝ Kai
