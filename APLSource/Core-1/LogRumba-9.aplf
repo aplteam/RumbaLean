@@ -7,6 +7,7 @@
      ld←LogDate QTS
      d←'Rumba: ',ld,' ',⍵,CrLf
      u←⎕UCS'UTF-8'⎕UCS d
-     _←u ⎕NAPPEND t
+     ~t∊⎕NNUMS:0                    ⍝ The application may have untied the log file by now.
+     _←u ⎕NAPPEND t                 ⍝ No function call between these two: that keeps them free of thread switches
      0
  }

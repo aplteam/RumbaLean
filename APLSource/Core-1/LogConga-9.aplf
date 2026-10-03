@@ -5,6 +5,7 @@
      t←⍺.LogFileTie
      ~⍺.LogConga∧t<0:0
      d←CreateCongaLogEntry ⍵
+     ~t∊⎕NNUMS:0                    ⍝ Must stay right before ⎕NAPPEND: see `LogRumba`
      _←d ⎕NAPPEND t
      0
  }

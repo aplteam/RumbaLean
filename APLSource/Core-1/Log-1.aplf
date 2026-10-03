@@ -4,8 +4,9 @@
      t←s.LogFileTie
      l←s.LogHTTP
      ∨/0=t,l:0
-     f←{⍵ ⎕NAPPEND ⍺}
-     l=1:t f CreateLogEntry ⍵
-     l=2:t f CreateFullLogEntry ⍵
+     ~l∊1 2:0
+     e←l{⍺=1:CreateLogEntry ⍵ ⋄ CreateFullLogEntry ⍵}⍵
+     ~t∊⎕NNUMS:0                    ⍝ Must stay right before ⎕NAPPEND: see `LogRumba`
+     _←e ⎕NAPPEND t
      0
  }
