@@ -1,5 +1,23 @@
-* 3.4.2 from 2026-09-11
-  `OnServerTimeout` must follow the lead of `ServerLoop` in order to make error trapping really usefull.
+* 3.5.0 from 2026-10-03
+  * Error trapping reworked: `ServerLoop`, `WaitForData`, `OnServerTimeout` and `TrapRequest` act on
+    HandleError's signal (`#.ErrorParms.signal`) and cut back to Rumba's own handler.
+    `OnServerTimeout` now follows the lead of `ServerLoop`.
+  * New method `GetConnectionOfThread`; connections keep the last block received in `LastBlock`.
+    Together they allow a crash handler to save the offending request.
+  * House keeping now runs once the interval (`CongaTimeout`) has passed, not only when the server
+    has been idle for a full interval: a busy server never ran it at all. See `HouseKeepingIfOverdue`.
+    The interval is measured to the millisecond (`SecondsNow`), and putting the clock back no longer
+    suspends house keeping.
+  * The `819⌶` fallbacks are gone: 18.2 has `⎕C`.
+  * Tests added: `TestHouseKeepingWhenBusy`, `TestRequestTargetNotSimple` & `TestGetConnectionOfThread`. 
+    (The test server now runs with a `CongaTimeout` of one second and counts its house keeping)
+  * Bug fixes
+    * `ErrorInRumba` logged the error caption twice.
+    * A "RequestTarget" that is not simple character data is now refused with a DOMAIN ERROR by `Send`, 
+      `SendAndReceive` and `SendExpect100`, before a connection is opened. It used to be composed into a 
+      request line no server can parse, which left the client waiting for a reply that never came,
+      looking like a hang
+  * Note that RumbaLean is no longer kept in sync with Carlisle's Rumba; "HowToSyncWithRumba.md" is gone.
 * 3.4.1 from 2026-09-09
   * Although a correct version of Rumba was distributed with Plodder, a wrong version (with the same
     version number, strangely) was released. 
