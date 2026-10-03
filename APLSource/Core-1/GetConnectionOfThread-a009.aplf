@@ -1,0 +1,14 @@
+ GetConnectionOfThread←{
+     ⍝ ⍺ ←→ Server
+     ⍝ ⍵ ←→ Thread number
+     ⍝ ← ←→ The connection served by that thread, or ⍬ when there is none
+     ⍝ Every connection is served by a thread of its own (see `WaitForData`), so this answers
+     ⍝ "what was this thread working on?" - from an error handler running in that thread, say.
+     ⍝ The connection's `Messages` hold what has been received so far, its `LastBlock` the
+     ⍝ last block of data exactly as Conga delivered it.
+     c←GetConnections ⍺
+     0=≢c:⍬
+     c←(c.Tid=⍵)/c
+     0=≢c:⍬
+     ↑c
+ }

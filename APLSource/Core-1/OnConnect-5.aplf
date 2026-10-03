@@ -10,6 +10,7 @@
      c.PeerAddress←1 1⊃DRC.GetProp(s.Name,'.',n)'PeerAddr'
      c.Name←n
      c.Buffer←0
+     c.LastBlock←''
      c.Class←'Connection'
      c.MessageType←'Request'
      c.LogHTTP←s.LogHTTP

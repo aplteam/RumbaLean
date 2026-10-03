@@ -1,0 +1,13 @@
+ TestGetConnectionOfThread←{
+     ⍝ Needs no server: a stand-in with two connections is all `GetConnectionOfThread` looks at
+     s←⎕NS''
+     s.Connections←⎕NS''
+     ⍬≢s R.GetConnectionOfThread 11:1
+     s.Connections.(C1 C2)←⎕NS¨'' ''
+     s.Connections.C1.Tid←11
+     s.Connections.C2.Tid←12
+     s.Connections.C2≢s R.GetConnectionOfThread 12:1
+     s.Connections.C1≢s R.GetConnectionOfThread 11:1
+     ⍬≢s R.GetConnectionOfThread 13:1
+     0
+ }

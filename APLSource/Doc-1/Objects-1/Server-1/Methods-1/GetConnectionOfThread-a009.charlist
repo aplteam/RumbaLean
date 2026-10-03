@@ -1,0 +1,21 @@
+# GetConnectionOfThread Method
+
+Applies to:{.prefix}
+
+Server{.info}
+
+~~~
+R←X GetConnectionOfThread Y
+~~~
+
+X is a server, Y is a thread number, R is the connection served by that thread, or `⍬` if there is
+none.
+
+Every connection is served by a thread of its own, so GetConnectionOfThread tells an error handler
+that runs in the thread that crashed what that thread was working on. The connection's `Messages`
+hold what has been received so far: complete requests, and possibly one that is only partly
+received. Its `LastBlock` holds the last block of data exactly as it was received, which is what
+matters most when a request is so ill-formed that it could not be parsed.
+
+Note that both may contain credentials, for example in an "Authorization" header.
+

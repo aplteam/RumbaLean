@@ -13,6 +13,7 @@
      d≡1119:'1119'CloseConnection ⍵
      e≢'Block':e CloseConnection ⍵
      ⍵.LastReceiveTime←QTS
+     ⍵.LastBlock←d                      ⍝ As received, for crash reports; see `GetConnectionOfThread`
      m←↑⌽⍵.Messages
      cm←d GatherRequestMessage m
      _←HandleRequest¨cm
