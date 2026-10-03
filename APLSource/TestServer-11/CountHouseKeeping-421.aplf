@@ -1,0 +1,5 @@
+ CountHouseKeeping←{
+     ⍝ OnCongaTimeout callback: counts how often the server has run house keeping
+     ⍵.HouseKeepingCount+←1
+     0
+ }

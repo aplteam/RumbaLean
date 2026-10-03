@@ -7,6 +7,7 @@
      s.Port←8080
      s.Address←''
      s.CongaTimeout←5000
+     s.LastHouseKeeping←0            ⍝ Seconds; 0 until house keeping has run once
      s.IdleTimeout←30
      s.OnStart←''
      s.OnRequest←''

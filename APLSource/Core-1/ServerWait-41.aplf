@@ -3,8 +3,9 @@
      r←DRC.Wait s.Name s.CongaTimeout
      _←s LogConga r
      rc←↑r
-     100=rc:s OnServerTimeout 0
+     100=rc:RunHouseKeeping s
      rc≢0:.
+     _←HouseKeepingIfOverdue s
      cn←1⊃{('.'≠⍵)⊂⍵}1⊃r
      (e d)←r[2 3]
      e≡'Connect':s OnConnect cn

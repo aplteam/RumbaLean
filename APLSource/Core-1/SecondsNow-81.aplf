@@ -1,0 +1,5 @@
+ r←SecondsNow;ts
+⍝ The current time in seconds since 0, including the milliseconds.
+⍝ `QTSToSeconds` drops the milliseconds, which is too coarse for an interval of a second or two.
+ ts←QTS
+ r←(QTSToSeconds ts)+0.001×6⊃ts

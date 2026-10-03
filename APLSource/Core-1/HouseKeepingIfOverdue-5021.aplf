@@ -1,0 +1,29 @@
+ r←HouseKeepingIfOverdue server;now;interval
+⍝ Runs house keeping when a full interval has gone by since it last ran, even though Conga
+⍝ has reported an event rather than a timeout. Returns 1 if it ran and 0 if it did not.
+⍝ Without this, `ServerWait` reaches house keeping only when `DRC.Wait` returns 100, and
+⍝ Conga returns that only when nothing at all arrived for the whole of `CongaTimeout`.
+⍝ Every event starts that window again, so a server asked for something every few seconds
+⍝ would never run house keeping at all: idle connections would not be reaped, upstream
+⍝ health would not be checked, and whatever the application hung off `OnCongaTimeout` -
+⍝ log rotation, say, or noticing that it has been asked to shut down - would not happen
+⍝ either. The interval is meant to be "every so often", not "once things go quiet".
+⍝ House keeping is run before the event that prompted it is handled, so the work it does
+⍝ lands in front of one request rather than being put off indefinitely. It is expected to
+⍝ be brief; anything lengthy belongs in a thread of the application's own.
+⍝ `LastHouseKeeping` is 0 on a Server space that has not house kept yet (see `NewServer`).
+⍝ That first sighting only starts the clock: a server is given a full interval before its
+⍝ first house keeping, which is what would happen were it idle.
+⍝ Should the clock be put back - at the end of daylight saving time, say - the clock is simply
+⍝ started again; otherwise house keeping would be suspended until the time had caught up.
+ r←0
+ now←SecondsNow
+ interval←0.001×server.CongaTimeout                  ⍝ Conga counts milliseconds, SecondsNow seconds
+ :If 0=server.LastHouseKeeping
+ :OrIf now<server.LastHouseKeeping
+     server.LastHouseKeeping←now
+ :ElseIf interval≤now-server.LastHouseKeeping
+     {}RunHouseKeeping server
+     r←1
+ :EndIf
+⍝Done

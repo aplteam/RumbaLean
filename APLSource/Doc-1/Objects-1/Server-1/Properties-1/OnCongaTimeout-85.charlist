@@ -4,9 +4,14 @@ Applies to:{.prefix}
 
 Server{.info}
 
-The OnCongaTimeout property specifies a call back function to be called at every server timeout.
-This function is expected to exist in the namespace or object instance defined by the →[Context]
-property. This callback may be the name of a method of some class.
+The OnCongaTimeout property specifies a call back function to be called whenever the server
+performs housekeeping: when the Conga wait times out, and on a busy server when an event arrives
+once →[CongaTimeout] milliseconds have passed since housekeeping last ran. This function is
+expected to exist in the namespace or object instance defined by the →[Context] property. This
+callback may be the name of a method of some class.
+
+The callback runs in the server thread, before the event that prompted it is handled, so it should
+be brief. Anything lengthy belongs in a thread of the application's own.
 
 The right argument provided to the function is a →[##.##.Server] object. 
 

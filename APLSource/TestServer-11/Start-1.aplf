@@ -11,6 +11,9 @@
      _←'Strings's.⎕NS''
      s.OnRequest←'OnRequest'
      s.OnHeader←'OnRequestHeader'
+     s.CongaTimeout←1000                     ⍝ House keeping every second keeps TestHouseKeepingWhenBusy short
+     s.OnCongaTimeout←'CountHouseKeeping'
+     s.HouseKeepingCount←0
      s.Caching←1
      s.Folder←##.Tests.GetTestDir,'/RumbaTestServer'
      s.LogHTTP←1

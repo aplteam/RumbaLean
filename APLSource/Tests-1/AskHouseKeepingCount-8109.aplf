@@ -1,0 +1,8 @@
+ AskHouseKeepingCount←{
+     ⍝ ← ←→ How often the test server has run house keeping so far
+     c←R.NewClient 0
+     c.Port←8080
+     q←R.NewRequest'/HouseKeepingCount'
+     r←c R.SendAndReceive q
+     ↑1⊃⎕VFI GetContent r
+ }

@@ -1,0 +1,7 @@
+ r←RunHouseKeeping server
+⍝ Runs house keeping - `OnServerTimeout` - and notes when it ran.
+⍝ Both paths through `ServerWait` come here rather than calling `OnServerTimeout`
+⍝ themselves, so that the note cannot be forgotten on one of the two.
+ server.LastHouseKeeping←SecondsNow
+ r←server OnServerTimeout 0
+⍝Done

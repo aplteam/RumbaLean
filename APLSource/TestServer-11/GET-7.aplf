@@ -17,6 +17,7 @@
      u{⍵≡(⍴⍵)↑⍺}'/%C3%A4%C3%84%C3%B6%C3%96%C3%BC%C3%9C%C3%9F':UTF8Test2 ⍵
      u≡'/FileDownload':⍵ FileDownload 0
      u≡'/ShutdownTestServer':ShutServerDown ⍵
+     u≡'/HouseKeepingCount':GetHouseKeepingCount ⍵
      r←##.Core.NewResponse ⍵
      r.StatusCode←404
      r
