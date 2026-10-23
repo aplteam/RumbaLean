@@ -1,0 +1,43 @@
+ r←DecodeUTF8 bytes;b;n;b1;b2;b3;cont;c1;c2;c3;run;lead;need;lo;hi;k;valid;start;cp;i
+⍝ Decodes UTF-8 like `'UTF-8'⎕UCS`, but never fails: wherever the bytes are not valid UTF-8, the
+⍝ offending sequence becomes U+FFFD, the replacement character. Follows the UTF-8 decoder of the
+⍝ WHATWG Encoding Standard, which replaces each "maximal subpart" of an invalid sequence: an
+⍝ overlong form, a surrogate, a code point beyond U+10FFFF, a stray continuation byte, a byte that
+⍝ never occurs in UTF-8, a sequence cut short.
+⍝ `'UTF-8'⎕UCS` rejects some of these with a DOMAIN ERROR, but returns others - surrogates, code
+⍝ points beyond U+10FFFF - as characters that are not valid Unicode.
+⍝ Works on all bytes at once. That relies on UTF-8 being self-synchronising: a byte that is not a
+⍝ continuation byte (80..BF) always starts something new - a character or a U+FFFD - however the
+⍝ bytes before it went. A continuation byte either belongs to the lead byte before it, or it is
+⍝ a stray one and becomes a U+FFFD of its own.
+⍝ A lead byte takes as many of the continuation bytes following it as it can: all it needs makes
+⍝ a character, fewer make one U+FFFD - a "maximal subpart". The first continuation byte has a
+⍝ narrower range after E0, ED, F0 and F4; outside it the lead byte takes none at all.
+⍝ Mantis 23291 is an RFE asking for enhancing ⎕UCS so that this function can be removed.
+ b←,bytes
+ n←≢b
+ b1←n↑1↓b                                            ⍝ The 1st, 2nd and 3rd byte after every byte;
+ b2←n↑2↓b                                            ⍝ 0 beyond the end
+ b3←n↑3↓b
+ cont←(128≤b)∧b≤191
+ c1←n↑1↓cont
+ c2←n↑2↓cont
+ c3←n↑3↓cont
+ run←c1+(c1∧c2)+c1∧c2∧c3                             ⍝ Continuation bytes that follow, up to 3
+ lead←(194≤b)∧b≤244                                  ⍝ C2..F4: C0, C1 and F5..FF never occur
+ need←lead×1+(224≤b)+240≤b                           ⍝ Continuation bytes a lead byte needs
+ lo←128+(32×b=224)+16×b=240                          ⍝ E0 80..9F, F0 80..8F would be overlong
+ hi←191-(32×b=237)+48×b=244                          ⍝ ED A0..BF a surrogate, F4 90..BF beyond U+10FFFF
+ k←((lo≤b1)∧b1≤hi)×need⌊run                          ⍝ Continuation bytes a lead byte takes
+ valid←(b≤127)∨lead∧k=need
+ start←~(n↑0,k≥1)∨(n↑0 0,k≥2)∨n↑0 0 0,k≥3           ⍝ Not taken by a lead byte
+ cp←b
+ i←⍸valid∧need=1
+ cp[i]←(64×32|b[i])+64|b1[i]
+ i←⍸valid∧need=2
+ cp[i]←(4096×16|b[i])+(64×64|b1[i])+64|b2[i]
+ i←⍸valid∧need=3
+ cp[i]←(262144×8|b[i])+(4096×64|b1[i])+(64×64|b2[i])+64|b3[i]
+ cp[⍸~valid]←65533
+ r←⎕UCS start/cp
+⍝Done

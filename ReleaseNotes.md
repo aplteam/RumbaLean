@@ -1,6 +1,15 @@
 # RumbaLean Release Notes
 
 
+## 3.5.1 from 2026-10-23
+* Bug fix: a percent-encoded request target or parameter that is not valid UTF-8 - for
+  example "/%C0" - crashed the server with a DOMAIN ERROR in `PercentDecode`. Such sequences
+  now become U+FFFD, the replacement character, as browsers do it. `PercentDecode` also no
+  longer joins escapes that are not adjacent, and decodes "%2541" once only, to "%41"
+* Bug fix: a percent-encoded request target or parameter ending in the middle of a character -
+  for example "/%C3" - was sometimes decoded into a wrong character instead of U+FFFD. The cause
+  is `'UTF-8'⎕UCS` reading beyond the end of its argument; `PercentDecode` now works around it
+
 ## 3.5.0 from 2026-10-03
 * House keeping now runs once the interval has passed rather than only when the server
   has been idle for a full interval. Because it used to hang off Conga's timeout alone,
@@ -92,6 +101,7 @@
 
 ## 1.0.0 from 2020-03-12
 * Fork from Rumba, based on version 0.1.6
+
 
 
 

@@ -1,22 +1,64 @@
- r←PercentDecode r_;rgx;rgxu;z;t;j;i;lens;fill;m
-⍝ Rumba's own function causes a LENGTH ERROR when the data contains both a space and a multi-byte char.
-⍝ This function was taken from HttpCommands and slightly changed.
- r←r_
+ r←PercentDecode r_;bad;n;hex;hv;pct;x2;xu;skip;p2;pu;cp;keep;len;bytes;c;success
+⍝ Decodes percent-encoded text. "%XX" stands for a byte, and "%uXXXX" - not standard, but sent by
+⍝ some clients - for a character. The bytes are taken to be UTF-8; wherever they are not valid
+⍝ UTF-8, the offending sequence becomes U+FFFD, the replacement character, as the WHATWG URL
+⍝ standard has it. So does a character that is not valid Unicode to begin with: a surrogate, or a
+⍝ code point beyond U+10FFFF. No input whatsoever may cause an error: the data comes from the client.
+⍝ A "%" that does not start an escape stays as it is, and so does every other character.
+⍝ Decoding happens once: "%2541" becomes "%41", not "A".
+⍝ "+" becomes a blank, as in query strings and form data; "%2B" is a "+".
+⍝ The original Rumba function caused a LENGTH ERROR when the data contained both a blank and a
+⍝ multi-byte character. Its replacement, taken from HttpCommands, decoded all escapes of the text
+⍝ as one sequence of bytes - joining escapes that were not adjacent - and crashed the server with
+⍝ a DOMAIN ERROR on invalid UTF-8 such as "/%C0".
+ r←,r_
  ((r='+')/r)←' '
- rgx←'[0-9a-fA-F]'
- rgxu←'%[uU]',(4×≢rgx)⍴rgx ⍝ 4 characters
- r←(rgxu ⎕R{{⎕UCS 16⊥⍉16|'0123456789ABCDEF0123456789abcdef'⍳⍵}2↓⍵.Match})r
- i←⍸r='%'
- :If 0≠≢i
-     i←(i≤¯2+≢r)/i
- :AndIf 0≠≢i
-     j←i∘.+1 2
-     z←r[j]
-     t←'UTF-8'⎕UCS 16⊥⍉16|'0123456789ABCDEF0123456789abcdef'⍳z
-     lens←≢¨'UTF-8'∘⎕UCS¨t  ⍝ UTF-8 is variable length encoding
-     fill←i[¯1↓+\0,lens]
-     r[fill]←t
-     m←(≢r)⍴1
-     m[(,j),i~fill]←0
-     r←m/r
+ cp←⎕UCS r
+ bad←(cp>1114111)∨(55296≤cp)∧cp≤57343
+ (bad/r)←⎕UCS 65533
+ :If ∧/~pct←r='%'
+     :Return
  :EndIf
+ n←≢r
+ hv←'0123456789ABCDEF0123456789abcdef'⍳r,5⍴'%'      ⍝ Padded: looking ahead never runs off the end
+ hex←hv<32
+ x2←pct∧(n↑1↓hex)∧n↑2↓hex                           ⍝ A "%XX" starts here
+ cp←⎕UCS r
+ :If ∨/'uU'∊r
+     xu←pct∧(n↑1↓r,' ')∊'uU'
+     xu∧←(n↑2↓hex)∧(n↑3↓hex)∧(n↑4↓hex)∧n↑5↓hex      ⍝ A "%uXXXX" starts here
+⍝ The two cannot overlap: "u" is not a hex digit, and a hex digit is not a "%".
+     skip←(n↑0,x2∨xu)∨(n↑0 0,x2∨xu)∨(n↑0 0 0,xu)∨(n↑0 0 0 0,xu)∨n↑0 0 0 0 0,xu ⍝ The rest of an escape
+     pu←⍸xu
+     cp[pu]←16⊥⍉16|hv[pu∘.+2+⍳4]
+     cp[⍸(55296≤cp)∧cp≤57343]←65533                 ⍝ A lone surrogate is not a character
+ :Else
+     skip←(n↑0,x2)∨n↑0 0,x2
+ :EndIf
+ p2←⍸x2
+ cp[p2]←0                                           ⍝ One byte, replaced below by the escaped one
+ keep←~skip
+ cp←keep/cp
+ len←1+(cp≥128)+(cp≥2048)+cp≥65536                  ⍝ The length of every character in UTF-8
+ bytes←'UTF-8'⎕UCS ⎕UCS cp
+ bytes[(+\0,¯1↓len)[(+\keep)[p2]-1]]←16⊥⍉16|hv[p2∘.+1 2]
+ :If ∧/bytes<128
+     r←⎕UCS bytes
+     :Return
+ :EndIf
+ success←0
+ :Trap 11                                           ⍝ DOMAIN ERROR: the bytes are not valid UTF-8
+⍝ `'UTF-8'⎕UCS` reads beyond the end of its argument: a sequence cut short by the end is completed
+⍝ by whatever byte follows in memory, if that happens to be a continuation byte, instead of causing
+⍝ a DOMAIN ERROR. The 0 cannot continue anything, so it makes the DOMAIN ERROR certain.
+     r←¯1↓'UTF-8'⎕UCS bytes,0
+     success←1
+ :EndTrap
+ :If success
+     c←⎕UCS r                                       ⍝ ⎕UCS lets surrogates and code points beyond
+     success←~∨/(c>1114111)∨(55296≤c)∧c≤57343       ⍝ U+10FFFF through rather than failing
+ :EndIf
+ :If ~success
+     r←DecodeUTF8 bytes
+ :EndIf
+⍝Done

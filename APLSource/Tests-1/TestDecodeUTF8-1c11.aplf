@@ -1,0 +1,41 @@
+ TestDecodeUTF8←{
+     ⍝ `DecodeUTF8` on every kind of invalid UTF-8, on every single byte, and on the UTF-8 of every
+     ⍝ Unicode scalar value. Needs no server.
+     ⍝ Invalid UTF-8 becomes U+FFFD (F below): one for every "maximal subpart" of an invalid
+     ⍝ sequence, as the Unicode Standard and the WHATWG Encoding Standard have it.
+     F←⎕UCS 65533
+     c←0 2⍴⊂''
+     c⍪←⍬''
+     c⍪←(65 98 99)'Abc'
+     c⍪←(195 164)(,'ä')
+     c⍪←(226 130 172)(,'€')
+     c⍪←(240 159 152 128)(,⎕UCS 128512)
+     c⍪←(,192)(,F)                                   ⍝ Never occurs in UTF-8
+     c⍪←(138 222)(F,F)                               ⍝ A stray continuation byte, then a lead byte cut short
+     c⍪←(,195)(,F)                                   ⍝ Cut short by the end
+     c⍪←(192 175)(F,F)                               ⍝ Overlong
+     c⍪←(224 128 175)(F,F,F)                         ⍝ Overlong
+     c⍪←(240 128 128 175)(F,F,F,F)                   ⍝ Overlong
+     c⍪←(237 160 128)(F,F,F)                         ⍝ A surrogate
+     c⍪←(244 144 128 128)(F,F,F,F)                   ⍝ Beyond U+10FFFF
+     c⍪←(248 136 128 128 128)(F,F,F,F,F)             ⍝ The 5-byte form
+     c⍪←(226 130 120)(F,'x')                         ⍝ Cut short by an ASCII character
+     c⍪←(240 159 152)(,F)                            ⍝ Two continuation bytes are one maximal subpart
+     c⍪←(195 195 164)(F,'ä')                         ⍝ Cut short by a lead byte
+     c⍪←(97 195 164 255 98)('aä',F,'b')
+     (in out)←↓⍉c
+     got←R.DecodeUTF8¨in
+     b←(,¨out)≢¨got
+     single←(,¨⎕UCS¨⍳128),128⍴⊂,F                    ⍝ ASCII is itself; any other byte alone is invalid
+     s←single≢¨R.DecodeUTF8¨,¨⍳256
+     sv←(⍳55296),57344+⍳1056768                      ⍝ Every scalar value: all but the surrogates
+     ok←sv≡⎕UCS R.DecodeUTF8'UTF-8'⎕UCS ⎕UCS sv
+     ok∧~(∨/b)∨∨/s:0
+     ⍝ Code points rather than characters: U+FFFD, blanks and control characters all look alike
+     e←{⍕⎕UCS∊⍵}¨b/out
+     a←{(⍕⎕UCS∊⍵),' (rank ',(⍕⍴⍴⍵),', depth ',(⍕≡⍵),')'}¨b/got
+     _←⎕←⍪(⊂'DecodeUTF8 fails on '),¨(⍕¨b/in),¨(⊂' - expected '),¨e,¨(⊂', got '),¨a
+     _←⎕←(∨/s)/'DecodeUTF8 fails on single bytes: ',⍕⍸s
+     _←⎕←(~ok)/'DecodeUTF8 fails on valid UTF-8'
+     1
+ }

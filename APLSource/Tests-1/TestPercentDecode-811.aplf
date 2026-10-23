@@ -1,0 +1,80 @@
+ TestPercentDecode←{
+     ⍝ Every kind of input `PercentDecode` must cope with. Needs no server.
+     ⍝ "%XX" is a byte, the bytes are UTF-8, and invalid UTF-8 becomes U+FFFD (F below) - one for
+     ⍝ every "maximal subpart" of an invalid sequence, as the WHATWG standards have it.
+     ⍝ No input may cause an error: an error here once took the server down.
+     F←⎕UCS 65533
+     c←0 2⍴⊂''
+     ⍝ Nothing to decode
+     c⍪←'' ''
+     c⍪←'abc' 'abc'
+     c⍪←'a+b' 'a b'
+     c⍪←'%2B+' '+ '
+     ⍝ A "%" that does not start an escape
+     c⍪←'%'(,'%')
+     c⍪←'abc%' 'abc%'
+     c⍪←'%4' '%4'
+     c⍪←'%zz' '%zz'
+     c⍪←'%4g' '%4g'
+     c⍪←'%%41' '%A'
+     c⍪←'%u12' '%u12'
+     c⍪←'%u12zz' '%u12zz'
+     ⍝ Single bytes
+     c⍪←'%41'(,'A')
+     c⍪←'%41%42' 'AB'
+     c⍪←'%2f%2F' '//'
+     c⍪←'%20'(,' ')
+     c⍪←'%00'(,⎕UCS 0)
+     c⍪←'%7F'(,⎕UCS 127)
+     ⍝ Decoded once only
+     c⍪←'%2541' '%41'
+     c⍪←'%u002541' '%41'
+     ⍝ Valid UTF-8
+     c⍪←'%C3%A4'(,'ä')
+     c⍪←'%c3%a4'(,'ä')
+     c⍪←'%E2%82%AC'(,'€')
+     c⍪←'%F0%9F%98%80'(,⎕UCS 128512)
+     c⍪←'x%C3%A4y' 'xäy'
+     c⍪←'ä%C3%A4' 'ää'
+     ⍝ "%uXXXX"
+     c⍪←'%u00E4'(,'ä')
+     c⍪←'%U20AC'(,'€')
+     c⍪←'%u0025'(,'%')
+     c⍪←'%uD800'(,F)
+     ⍝ The two requests that crashed the server
+     c⍪←'/Assets/Fonts/cq.%8A%DE'('/Assets/Fonts/cq.',F,F)
+     c⍪←'/%C0'('/',F)
+     ⍝ Invalid UTF-8
+     c⍪←'%FF'(,F)
+     c⍪←'%80'(,F)
+     c⍪←'%C3'(,F)
+     c⍪←'%C0%AF'(F,F)
+     c⍪←'%E0%80%AF'(F,F,F)
+     c⍪←'%ED%A0%80'(F,F,F)
+     c⍪←'%F4%90%80%80'(F,F,F,F)
+     c⍪←'%F8%88%80%80%80'(F,F,F,F,F)
+     c⍪←'%E2%82'(,F)
+     c⍪←'%E2%82x'(F,'x')
+     c⍪←'%C3%C3%A4'(F,'ä')
+     c⍪←'%C3x%A4'(F,'x',F)
+     c⍪←'a%C3%A4%FFb'('aä',F,'b')
+     ⍝ Characters that are not valid Unicode on their own
+     c⍪←(⎕UCS 97 55296)('a',F)
+     c⍪←('a','UTF-8'⎕UCS 244 144 128 128)('a',F) ⍝ Only ⎕UCS's UTF-8 decoding makes one beyond U+10FFFF
+     c⍪←('%41',⎕UCS 55296)('A',F)
+     ⍝ Cut short by the end, after prefixes of every length: `'UTF-8'⎕UCS` reads beyond the end of
+     ⍝ its argument, so what lies in memory after the data must not matter
+     p←(⍳64)⍴¨'a'
+     c⍪←(⍪p,¨⊂'%C3'),⍪p,¨⊂,F
+     c⍪←(⍪p,¨⊂'%E2%82'),⍪p,¨⊂,F
+     c⍪←(⍪p,¨⊂'%F0%9F%98'),⍪p,¨⊂,F
+     (in out)←↓⍉c
+     got←R.PercentDecode¨,¨in
+     b←(,¨out)≢¨got
+     ~∨/b:0
+     ⍝ Code points rather than characters: U+FFFD, blanks and control characters all look alike
+     e←{⍕⎕UCS∊⍵}¨b/out
+     a←{(⍕⎕UCS∊⍵),' (rank ',(⍕⍴⍴⍵),', depth ',(⍕≡⍵),')'}¨b/got
+     _←⎕←⍪(⊂'PercentDecode fails on "'),¨(b/in),¨(⊂'" - expected '),¨e,¨(⊂', got '),¨a
+     1
+ }

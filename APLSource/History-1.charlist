@@ -1,3 +1,14 @@
+* 3.5.1 from 2026-10-23
+  * Bug fix: `PercentDecode` crashed the server with a DOMAIN ERROR on percent-encoded data that is
+    not valid UTF-8, such as "/%C0" or "/Assets/Fonts/cq.%8A%DE". Rewritten: invalid sequences now
+    become U+FFFD as the WHATWG URL standard has it (new function `DecodeUTF8`, which does what
+    `'UTF-8'⎕UCS` does but never fails), escapes that are not adjacent are no longer joined, and
+    decoding happens once only ("%2541" is "%41").
+  * `PercentDecode` works around `'UTF-8'⎕UCS` reading beyond the end of its argument: a sequence
+    cut short by the end, such as "%C3", was sometimes completed by a stray byte from memory and
+    decoded into a wrong character instead of U+FFFD.
+  * Tests added: `TestPercentDecode`, `TestDecodeUTF8` (neither needs a server) and
+    `TestInvalidPercentEncoding`.
 * 3.5.0 from 2026-10-03
   * Error trapping reworked: `ServerLoop`, `WaitForData`, `OnServerTimeout` and `TrapRequest` act on
     HandleError's signal (`#.ErrorParms.signal`) and cut back to Rumba's own handler.

@@ -1,0 +1,15 @@
+ TestInvalidPercentEncoding←{
+     ⍝ Requests whose percent-encoding is not valid UTF-8 once crashed the server in PercentDecode.
+     ⍝ They must simply not be found, and the server must carry on.
+     c←R.NewClient 0
+     c.Port←8080
+     q←R.NewRequest'/Assets/Fonts/cq.%8A%DE'
+     r←c R.SendAndReceive q
+     r.StatusCode≠404:1
+     c←R.NewClient 0
+     c.Port←8080
+     q←R.NewRequest'/%C0'
+     r←c R.SendAndReceive q
+     r.StatusCode≠404:1
+     0
+ }
