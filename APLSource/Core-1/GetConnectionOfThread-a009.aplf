@@ -8,6 +8,8 @@
      ⍝ last block of data exactly as Conga delivered it.
      c←GetConnections ⍺
      0=≢c:⍬
+     c←(↑¨0≠c.⎕NC⊂'Tid')/c             ⍝ A connection being set up has no `Tid` yet; see `OnConnect`
+     0=≢c:⍬
      c←(c.Tid=⍵)/c
      0=≢c:⍬
      ↑c

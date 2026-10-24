@@ -9,5 +9,8 @@
      s.Connections.C2≢s R.GetConnectionOfThread 12:1
      s.Connections.C1≢s R.GetConnectionOfThread 11:1
      ⍬≢s R.GetConnectionOfThread 13:1
+     s.Connections.C3←⎕NS''                              ⍝ Created but not yet given a `Tid`
+     s.Connections.C1≢s R.GetConnectionOfThread 11:1     ⍝ Must still be found ...
+     ⍬≢s R.GetConnectionOfThread 13:1                    ⍝ ... and no match must still be ⍬
      0
  }
