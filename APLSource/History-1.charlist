@@ -1,3 +1,5 @@
+* 3.5.2 from 2026-10-24
+  * `GetConnectionOfThread` skips connections that have no Tid yet
 * 3.5.1 from 2026-10-23
   * Bug fix: `PercentDecode` crashed the server with a DOMAIN ERROR on percent-encoded data that is
     not valid UTF-8, such as "/%C0" or "/Assets/Fonts/cq.%8A%DE". Rewritten: invalid sequences now
