@@ -1,3 +1,18 @@
+* 3.5.3 from 2026-11-25
+  * Bug fixes
+    * `OpenLogFile` crashed with `LogHTTP←2`, a legitimate value.
+    * An error in the application's `OnHeader` handler stopped the server: it ended up in `ErrorInRumba`,
+      which executes `⎕OFF 125`. `HandleHeader` now calls the handler through `TrapRequest`, as
+      `OnRequest` is called: the client gets a 500, the connection is closed, and the server carries on.
+      The error is counted in `Stats.OnRequestErrors`.
+    * When `HandleHeader` answered a request itself (with a response returned by `OnHeader`, a 503 while
+      the server is paused, or now a 500), the request was still passed on to `OnRequest` once it was
+      complete, which for a GET is at once. That response went to the closed connection. An `OnHeader`
+      that rejected a request, for example for missing authorization, therefore did not stop `OnRequest`
+      from processing it. `HandleHeader` and `Send503ServiceUnavailable` now set `ResponseSent`, and
+      `HandleRequest` skips messages that have been answered already.
+  * Test added: `TestErrorInOnHeader`. The test server's `OnRequestHeader` fails on purpose for
+    "/CrashInHeader".
 * 3.5.2 from 2026-10-24
   * `GetConnectionOfThread` skips connections that have no Tid yet
 * 3.5.1 from 2026-10-23
