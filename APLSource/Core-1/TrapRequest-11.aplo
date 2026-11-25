@@ -1,6 +1,6 @@
  z←(f TrapRequest)x;t;⎕TRAP;dmx
 ⍝ x ←→ Request Message
-⍝ f ←→ OnRequest Function
+⍝ f ←→ OnRequest or OnHeader function
  t←x.Connection.Server.Trap
  :If 0<⎕NC'#.ErrorParms.signal'
      ⎕TRAP←t/⊂#.ErrorParms.signal'C' '→∆CarryOn'

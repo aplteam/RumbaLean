@@ -5,10 +5,11 @@
      s.Paused:Send503ServiceUnavailable ⍵
      s.OnHeader≡'':0
      f←s.Context⍎s.OnHeader
-     r←f ⍵
+     r←f TrapRequest ⍵                 ⍝ An error in the handler costs this request a 500, not the server
      e←⍵.Expect100
      e∧r=0:Send100Continue ⍵
      r=0:0
      r.Close←1
+     ⍵.ResponseSent←1                  ⍝ Keeps `HandleRequest` from passing the message on to `OnRequest` as well
      SendResponse r
  }

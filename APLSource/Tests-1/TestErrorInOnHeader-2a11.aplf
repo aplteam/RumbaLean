@@ -1,0 +1,15 @@
+ TestErrorInOnHeader←{
+     ⍝ An error in the application's `OnHeader` handler once ended in `ErrorInRumba`, which stopped
+     ⍝ the server. It must cost the request a 500 instead, and the server must carry on.
+     c←R.NewClient 0
+     c.Port←8080
+     q←R.NewRequest'/CrashInHeader'
+     r←c R.SendAndReceive q
+     r.StatusCode≠500:1
+     c←R.NewClient 0
+     c.Port←8080
+     q←R.NewRequest'/HelloWorld'
+     r←c R.SendAndReceive q
+     '/HelloWorld'≢GetContent r:1
+     0
+ }

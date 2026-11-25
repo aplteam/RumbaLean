@@ -1,6 +1,7 @@
  r←HandleRequest m;c;s
  r←0
  :If m≠0
+ :AndIf ~m.ResponseSent               ⍝ `HandleHeader` has answered already: OnHeader's response, a 500 or a 503
      c←m.Connection
      s←c.Server
      m.Tid←⎕TID

@@ -6,5 +6,6 @@
      _←wp ##.HTML.Add'h1' '503 : Service Unavailable'
      r.Content←wp
      r.Close←1
+     ⍵.ResponseSent←1                  ⍝ Keeps `HandleRequest` from passing the message on to `OnRequest` as well
      SendResponse r
  }
